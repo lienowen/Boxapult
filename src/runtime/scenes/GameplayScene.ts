@@ -5,6 +5,7 @@ import { getLevel } from '../../content/levels/levelCatalog';
 import { GameFlow } from '../../domain/flow/GameFlow';
 import { GamePhase } from '../../domain/flow/GamePhase';
 import type { LevelDefinition } from '../../domain/level/LevelDefinition';
+import { ImpactSystem } from '../systems/ImpactSystem';
 import { LaunchController } from '../systems/LaunchController';
 import { LevelBuilder, type LevelRuntime } from '../systems/LevelBuilder';
 import { OutcomeSystem } from '../systems/OutcomeSystem';
@@ -20,6 +21,7 @@ export class GameplayScene extends Phaser.Scene {
   #level!: LevelDefinition;
   #runtime!: LevelRuntime;
   #launch!: LaunchController;
+  #impact!: ImpactSystem;
   #outcome!: OutcomeSystem;
   #hud!: GameHud;
   #restartKey: Phaser.Input.Keyboard.Key | null = null;
@@ -50,6 +52,7 @@ export class GameplayScene extends Phaser.Scene {
       gameBalance.trajectoryPreview,
       this.#level.launchPoint,
     );
+    this.#impact = new ImpactSystem(this, this.#runtime.package, this.#runtime.integrity);
     this.#outcome = new OutcomeSystem(
       this.#runtime.package,
       this.#runtime.integrity,
@@ -96,6 +99,7 @@ export class GameplayScene extends Phaser.Scene {
     this.#restartKey?.off('down', this.#restartLevel, this);
     this.input.off(Phaser.Input.Events.POINTER_DOWN, this.#handleResultPointer, this);
     this.#launch.destroy();
+    this.#impact.destroy();
     this.#hud.destroy();
   };
 }
