@@ -12,6 +12,10 @@ export class ParcelTitleScene extends Phaser.Scene {
     super('parcel-title');
   }
 
+  init(): void {
+    this.#starting = false;
+  }
+
   create(): void {
     createParcelPatrolTextures(this);
     this.#backdrop = addParcelPatrolBackdrop(this);
