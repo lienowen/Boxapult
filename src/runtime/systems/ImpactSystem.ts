@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import type { IntegrityModel } from '../../domain/package/IntegrityModel';
+import { getMatterBody } from '../physics/getMatterBody';
 
 interface CollisionPair {
   readonly bodyA: MatterJS.BodyType;
@@ -32,7 +33,7 @@ export class ImpactSystem {
   }
 
   readonly #handleCollision = (event: CollisionEvent): void => {
-    const packageBody = this.packageImage.body;
+    const packageBody = getMatterBody(this.packageImage);
     if (!packageBody) {
       return;
     }
