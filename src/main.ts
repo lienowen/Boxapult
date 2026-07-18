@@ -1,4 +1,4 @@
 import './styles.css';
-import { createGame } from './app/createGame';
+import { createParcelPatrol } from './app/createParcelPatrol';
 
-createGame('game-root');
+createParcelPatrol('game-root');
