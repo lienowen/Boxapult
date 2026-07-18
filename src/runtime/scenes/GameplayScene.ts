@@ -100,6 +100,7 @@ export class GameplayScene extends Phaser.Scene {
   }
 
   override update(_time: number, delta: number): void {
+    this.#runtime.packagePresenter.update();
     this.#outcome.update(delta);
     this.#hud.updateIntegrity(this.#runtime.integrity);
     this.#debugTelemetry?.update(delta);
@@ -121,6 +122,7 @@ export class GameplayScene extends Phaser.Scene {
     this.input.off(Phaser.Input.Events.POINTER_DOWN, this.#handleResultPointer, this);
     this.#launch.destroy();
     this.#impact.destroy();
+    this.#runtime.packagePresenter.destroy();
     this.#hud.destroy();
     this.#debugTelemetry?.destroy();
     this.#debugTelemetry = null;
