@@ -1,51 +1,40 @@
 # Boxapult
 
-Architecture-first 2D physics delivery game targeting CrazyGames and modern WebGL browsers.
+Architecture-first 2D physics delivery game for CrazyGames.
 
-## Locked foundation
+## Technology
 
-- Unity **6.3 LTS / 6000.3.18f1**
-- Built-in 2D rendering; no URP in the first release
-- One gameplay scene with data-driven levels
-- Manual composition root; no service locator or third-party DI container
-- CrazyGames integration isolated inside `Boxapult.Infrastructure`
-- Physics rules centralized in `GameRuntimeConfig`
+- Phaser 3.90
+- TypeScript 7 in strict mode
+- Vite 8
+- Matter Physics at a fixed 60 Hz step
+- Vitest domain tests
 
-## Open the project
-
-1. Install Unity `6000.3.18f1` with WebGL Build Support.
-2. Clone this repository.
-3. Open the repository root from Unity Hub.
-4. Let Unity generate missing `.meta` files on the first import, then commit them before creating scenes or assets.
-
-## Validate architecture
+## Commands
 
 ```bash
-python Tools/validate_architecture.py
+npm install
+npm run dev
+npm run check
+npm run build
 ```
 
-The same validation runs on every push through GitHub Actions.
+## Current playable slice
 
-## Module dependency direction
+The repository contains a white-box first level:
 
-```text
-Boxapult.Core
-      ^
-      |
-Boxapult.Gameplay
-   ^          ^
-   |          |
-Presentation  Infrastructure
-       \      /
-        Bootstrap
+1. Drag the package backward.
+2. Release to launch it.
+3. Land and settle inside the delivery zone.
+4. Click or press `R` to retry.
 
-Editor -> Core + Gameplay
-```
+No production art, ads, progression, or extra mechanics should be added before this slice passes the acceptance gates in `Docs/DEFINITION_OF_DONE.md`.
 
-See [`Docs/ARCHITECTURE.md`](Docs/ARCHITECTURE.md) and [`Docs/PROJECT_RULES.md`](Docs/PROJECT_RULES.md) before adding gameplay code.
+## Architecture
 
-## Current milestone
+Read these before adding code or content:
 
-`M0 — architecture bootstrap`
-
-The next milestone is a five-level white-box prototype. Formal art production does not begin until the white-box acceptance gate passes.
+- `Docs/ARCHITECTURE.md`
+- `Docs/GAME_DESIGN.md`
+- `Docs/CONTENT_PIPELINE.md`
+- `Docs/DEFINITION_OF_DONE.md`
