@@ -5,8 +5,13 @@ import type { IntegrityBalance } from '../../domain/package/IntegrityModel';
 export interface PackageBalance {
   readonly widthPixels: number;
   readonly heightPixels: number;
+  readonly chamferRadiusPixels: number;
   readonly aimGrabRadiusPixels: number;
   readonly angularVelocityAtFullStrength: number;
+  readonly friction: number;
+  readonly frictionAir: number;
+  readonly restitution: number;
+  readonly density: number;
 }
 
 export interface TrajectoryPreviewBalance {
@@ -34,8 +39,13 @@ export const gameBalance: GameBalance = {
   package: {
     widthPixels: 84,
     heightPixels: 62,
+    chamferRadiusPixels: 5,
     aimGrabRadiusPixels: 125,
     angularVelocityAtFullStrength: 0.028,
+    friction: 0.45,
+    frictionAir: 0.008,
+    restitution: 0.12,
+    density: 0.002,
   },
   trajectoryPreview: {
     pointCount: 14,
