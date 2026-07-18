@@ -1,44 +1,12 @@
-# Unity generated
-[Ll]ibrary/
-[Tt]emp/
-[Oo]bj/
-[Bb]uild/
-[Bb]uilds/
-[Ll]ogs/
-UserSettings/
-MemoryCaptures/
-Recordings/
-
-# IDE
-.vs/
-.idea/
-.vscode/
-*.csproj
-*.sln
-*.suo
-*.user
-*.userprefs
-*.pidb
-*.booproj
-*.svd
-*.pdb
-*.mdb
-*.opendb
-*.VC.db
-
-# OS
+node_modules/
+dist/
+.vite/
+coverage/
+*.log
 .DS_Store
 Thumbs.db
-Desktop.ini
-
-# Unity crash reports
-sysinfo.txt
-crashlytics-build.properties
-
-# WebGL output
-WebGLBuild/
-
-# Addressables generated data
-/ServerData/
-/Assets/StreamingAssets/aa.meta
-/Assets/StreamingAssets/aa/
+.idea/
+.vscode/
+.env
+.env.*
+!.env.example
