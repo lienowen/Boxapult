@@ -5,10 +5,9 @@ import { getLevel } from '../../content/levels/levelCatalog';
 import { GameFlow } from '../../domain/flow/GameFlow';
 import { GamePhase } from '../../domain/flow/GamePhase';
 import type { LevelDefinition } from '../../domain/level/LevelDefinition';
-import { FailureSystem } from '../systems/FailureSystem';
-import { GoalSystem } from '../systems/GoalSystem';
 import { LaunchController } from '../systems/LaunchController';
 import { LevelBuilder, type LevelRuntime } from '../systems/LevelBuilder';
+import { OutcomeSystem } from '../systems/OutcomeSystem';
 import { GameHud } from '../ui/GameHud';
 
 interface GameplaySceneData {
@@ -21,8 +20,7 @@ export class GameplayScene extends Phaser.Scene {
   #level!: LevelDefinition;
   #runtime!: LevelRuntime;
   #launch!: LaunchController;
-  #goal!: GoalSystem;
-  #failure!: FailureSystem;
+  #outcome!: OutcomeSystem;
   #hud!: GameHud;
   #restartKey: Phaser.Input.Keyboard.Key | null = null;
 
@@ -49,18 +47,15 @@ export class GameplayScene extends Phaser.Scene {
       this.#runtime.package,
       this.#flow,
       gameBalance.launch,
+      gameBalance.package,
+      gameBalance.trajectoryPreview,
       this.#level.launchPoint,
     );
-    this.#goal = new GoalSystem(
-      this.#runtime.package,
-      this.#runtime.integrity,
-      this.#level.goal,
-      this.#flow,
-    );
-    this.#failure = new FailureSystem(
+    this.#outcome = new OutcomeSystem(
       this.#runtime.package,
       this.#runtime.integrity,
       this.#level.worldBounds,
+      this.#level.goal,
       gameBalance,
       this.#flow,
     );
@@ -83,8 +78,7 @@ export class GameplayScene extends Phaser.Scene {
   }
 
   override update(_time: number, delta: number): void {
-    this.#goal.update(delta);
-    this.#failure.update(delta);
+    this.#outcome.update(delta);
     this.#hud.updateIntegrity(this.#runtime.integrity);
   }
 
