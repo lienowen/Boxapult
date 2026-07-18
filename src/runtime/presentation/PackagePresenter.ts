@@ -8,7 +8,7 @@ export class PackagePresenter {
   readonly #shadowOffset: number;
 
   constructor(
-    private readonly scene: Phaser.Scene,
+    scene: Phaser.Scene,
     private readonly packageImage: Phaser.Physics.Matter.Image,
     packageBalance: PackageBalance,
   ) {
