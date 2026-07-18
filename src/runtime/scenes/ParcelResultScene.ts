@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { calculateRouteGrade } from '../../domain/parcelPatrol/calculateRouteGrade';
 import { createParcelPatrolTextures } from '../parcelPatrol/ArtFactory';
 import { addParcelPatrolBackdrop, type ParcelPatrolBackdrop } from '../parcelPatrol/Backdrop';
 import type { ParcelResultData } from '../parcelPatrol/ParcelResultData';
@@ -22,6 +23,7 @@ export class ParcelResultScene extends Phaser.Scene {
 
   init(data: ParcelResultData): void {
     this.#result = data ?? emptyResult;
+    this.#transitioning = false;
   }
 
   create(): void {
@@ -60,7 +62,11 @@ export class ParcelResultScene extends Phaser.Scene {
     this.#addStat(width / 2, 290, 'PARCELS', this.#result.deliveries.toString());
     this.#addStat(width / 2 + 215, 290, 'BEST', String(this.#result.bestScore).padStart(6, '0'));
 
-    const grade = calculateGrade(this.#result.score, this.#result.deliveries, this.#result.success);
+    const grade = calculateRouteGrade({
+      score: this.#result.score,
+      deliveries: this.#result.deliveries,
+      completed: this.#result.success,
+    });
     this.add.text(width / 2, 420, `ROUTE GRADE  ${grade}`, {
       fontFamily: 'Arial Black, Arial, sans-serif',
       fontSize: '42px',
@@ -143,21 +149,4 @@ export class ParcelResultScene extends Phaser.Scene {
 
   readonly #retry = (): void => this.#goTo('parcel-game');
   readonly #menu = (): void => this.#goTo('parcel-title');
-}
-
-function calculateGrade(score: number, deliveries: number, success: boolean): string {
-  if (!success) {
-    return score >= 2500 ? 'C' : 'D';
-  }
-  const performance = score + deliveries * 350;
-  if (performance >= 8500) {
-    return 'S';
-  }
-  if (performance >= 6000) {
-    return 'A';
-  }
-  if (performance >= 3800) {
-    return 'B';
-  }
-  return 'C';
 }
