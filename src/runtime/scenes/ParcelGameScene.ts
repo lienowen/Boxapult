@@ -17,7 +17,7 @@ export class ParcelGameScene extends Phaser.Scene {
   #bolts!: Phaser.Physics.Arcade.Group;
   #enemyBolts!: Phaser.Physics.Arcade.Group;
   #parcels!: Phaser.Physics.Arcade.Group;
-  #cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
+  #cursors: Phaser.Types.Input.Keyboard.CursorKeys | null = null;
   #upKey: Phaser.Input.Keyboard.Key | null = null;
   #downKey: Phaser.Input.Keyboard.Key | null = null;
   #fireKey: Phaser.Input.Keyboard.Key | null = null;
@@ -28,14 +28,14 @@ export class ParcelGameScene extends Phaser.Scene {
   #comboText!: Phaser.GameObjects.Text;
   #timeBar!: Phaser.GameObjects.Rectangle;
   #pointerTargetY: number | null = null;
-  #remainingMs = parcelPatrolBalance.missionDurationSeconds * 1000;
-  #enemySpawnMs = parcelPatrolBalance.enemy.firstSpawnDelayMs;
-  #parcelSpawnMs = parcelPatrolBalance.parcel.spawnDelayMs;
+  #remainingMs = 0;
+  #enemySpawnMs = 0;
+  #parcelSpawnMs = 0;
   #lastFireMs = -9999;
   #invulnerableUntilMs = 0;
   #score = 0;
   #deliveries = 0;
-  #lives = parcelPatrolBalance.player.lives;
+  #lives = 0;
   #combo = 1;
   #finished = false;
 
@@ -44,6 +44,7 @@ export class ParcelGameScene extends Phaser.Scene {
   }
 
   create(): void {
+    this.#resetMissionState();
     createParcelPatrolTextures(this);
     this.#services = this.registry.get('parcelServices') as ParcelPatrolServices;
     this.#sfx = this.registry.get('parcelSfx') as ToneSfx;
@@ -71,6 +72,20 @@ export class ParcelGameScene extends Phaser.Scene {
     this.#updateEnemies(time);
     this.#cleanupObjects();
     this.#updateHud();
+  }
+
+  #resetMissionState(): void {
+    this.#pointerTargetY = null;
+    this.#remainingMs = parcelPatrolBalance.missionDurationSeconds * 1000;
+    this.#enemySpawnMs = parcelPatrolBalance.enemy.firstSpawnDelayMs;
+    this.#parcelSpawnMs = parcelPatrolBalance.parcel.spawnDelayMs;
+    this.#lastFireMs = -9999;
+    this.#invulnerableUntilMs = 0;
+    this.#score = 0;
+    this.#deliveries = 0;
+    this.#lives = parcelPatrolBalance.player.lives;
+    this.#combo = 1;
+    this.#finished = false;
   }
 
   #createPlayer(): void {
@@ -115,19 +130,32 @@ export class ParcelGameScene extends Phaser.Scene {
     }).setDepth(110);
 
     this.#scoreText = this.add.text(42, 48, 'SCORE 000000', {
-      fontFamily: 'Arial Black, Arial, sans-serif', fontSize: '22px', color: '#ffffff',
+      fontFamily: 'Arial Black, Arial, sans-serif',
+      fontSize: '22px',
+      color: '#ffffff',
     }).setDepth(110);
     this.#deliveriesText = this.add.text(340, 48, 'PARCELS 0', {
-      fontFamily: 'Arial, sans-serif', fontSize: '21px', color: '#ffd98a', fontStyle: 'bold',
+      fontFamily: 'Arial, sans-serif',
+      fontSize: '21px',
+      color: '#ffd98a',
+      fontStyle: 'bold',
     }).setDepth(110);
     this.#comboText = this.add.text(540, 48, 'COMBO x1.0', {
-      fontFamily: 'Arial, sans-serif', fontSize: '21px', color: '#75f1ff', fontStyle: 'bold',
+      fontFamily: 'Arial, sans-serif',
+      fontSize: '21px',
+      color: '#75f1ff',
+      fontStyle: 'bold',
     }).setDepth(110);
     this.#livesText = this.add.text(width - 250, 22, '♥ ♥ ♥', {
-      fontFamily: 'Arial, sans-serif', fontSize: '25px', color: '#ff7184', fontStyle: 'bold',
+      fontFamily: 'Arial, sans-serif',
+      fontSize: '25px',
+      color: '#ff7184',
+      fontStyle: 'bold',
     }).setDepth(110);
     this.#timeText = this.add.text(width - 250, 50, 'TIME 60', {
-      fontFamily: 'Arial Black, Arial, sans-serif', fontSize: '22px', color: '#ffffff',
+      fontFamily: 'Arial Black, Arial, sans-serif',
+      fontSize: '22px',
+      color: '#ffffff',
     }).setDepth(110);
 
     this.add.rectangle(width / 2, 84, width - 88, 8, 0x07111d, 0.75).setDepth(100);
@@ -135,21 +163,27 @@ export class ParcelGameScene extends Phaser.Scene {
       .setOrigin(0, 0.5)
       .setDepth(101);
 
-    this.add.text(width / 2, this.scale.height - 32, 'MOVE WITH POINTER / ↑ ↓   ·   FIRE WITH CLICK / TAP / SPACE', {
-      fontFamily: 'Arial, sans-serif',
-      fontSize: '17px',
-      color: '#d7eff7',
-      backgroundColor: '#07111dbb',
-      padding: { x: 16, y: 9 },
-    }).setOrigin(0.5).setDepth(100);
+    this.add.text(
+      width / 2,
+      this.scale.height - 32,
+      'MOVE WITH POINTER / ↑ ↓   ·   FIRE WITH CLICK / TAP / SPACE',
+      {
+        fontFamily: 'Arial, sans-serif',
+        fontSize: '17px',
+        color: '#d7eff7',
+        backgroundColor: '#07111dbb',
+        padding: { x: 16, y: 9 },
+      },
+    ).setOrigin(0.5).setDepth(100);
   }
 
   #createInput(): void {
-    this.#cursors = this.input.keyboard?.createCursorKeys() ?? ({} as Phaser.Types.Input.Keyboard.CursorKeys);
-    this.#upKey = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.W) ?? null;
-    this.#downKey = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.S) ?? null;
-    this.#fireKey = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE) ?? null;
-    this.#fireKey?.on('down', () => this.#tryFire(this.time.now));
+    const keyboard = this.input.keyboard;
+    this.#cursors = keyboard?.createCursorKeys() ?? null;
+    this.#upKey = keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.W) ?? null;
+    this.#downKey = keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.S) ?? null;
+    this.#fireKey = keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE) ?? null;
+    this.#fireKey?.on('down', this.#handleFireKey, this);
 
     this.input.on(Phaser.Input.Events.POINTER_MOVE, this.#handlePointerMove, this);
     this.input.on(Phaser.Input.Events.POINTER_DOWN, this.#handlePointerDown, this);
@@ -178,8 +212,8 @@ export class ParcelGameScene extends Phaser.Scene {
 
   #updatePlayer(deltaMs: number): void {
     const speed = parcelPatrolBalance.player.speed;
-    const movingUp = this.#cursors.up?.isDown === true || this.#upKey?.isDown === true;
-    const movingDown = this.#cursors.down?.isDown === true || this.#downKey?.isDown === true;
+    const movingUp = this.#cursors?.up.isDown === true || this.#upKey?.isDown === true;
+    const movingDown = this.#cursors?.down.isDown === true || this.#downKey?.isDown === true;
 
     if (movingUp) {
       this.#player.setVelocityY(-speed);
@@ -195,9 +229,14 @@ export class ParcelGameScene extends Phaser.Scene {
       this.#player.setVelocityY(0);
     }
 
-    const lean = Phaser.Math.Clamp(this.#player.body.velocity.y / speed, -1, 1);
+    const body = this.#player.body as Phaser.Physics.Arcade.Body;
+    const lean = Phaser.Math.Clamp(body.velocity.y / speed, -1, 1);
     this.#player.setAngle(lean * 8);
-    this.#player.x = Phaser.Math.Linear(this.#player.x, parcelPatrolBalance.player.startX, deltaMs * 0.004);
+    this.#player.x = Phaser.Math.Linear(
+      this.#player.x,
+      parcelPatrolBalance.player.startX,
+      Math.min(1, deltaMs * 0.004),
+    );
   }
 
   #updateMission(time: number, deltaMs: number): void {
@@ -245,19 +284,31 @@ export class ParcelGameScene extends Phaser.Scene {
     const kind: EnemyKind = Math.random() < raiderChance ? 'raider' : 'scout';
     const texture = kind === 'raider' ? 'pp-raider' : 'pp-scout';
     const y = Phaser.Math.Between(120, this.scale.height - 110);
-    const enemy = this.#enemies.get(this.scale.width + 90, y, texture) as Phaser.Physics.Arcade.Image | null;
+    const enemy = this.#enemies.get(
+      this.scale.width + 90,
+      y,
+      texture,
+    ) as Phaser.Physics.Arcade.Image | null;
     if (!enemy) {
       return;
     }
 
     enemy.enableBody(true, this.scale.width + 90, y, true, true);
+    enemy.setScale(1);
+    enemy.clearTint();
     enemy.setDepth(15);
     enemy.setData('kind', kind);
     enemy.setData('hp', kind === 'raider' ? 2 : 1);
     enemy.setData('nextShot', time + Phaser.Math.Between(900, 1700));
     const speed = kind === 'raider'
-      ? Phaser.Math.Between(parcelPatrolBalance.enemy.raiderSpeedMin, parcelPatrolBalance.enemy.raiderSpeedMax)
-      : Phaser.Math.Between(parcelPatrolBalance.enemy.scoutSpeedMin, parcelPatrolBalance.enemy.scoutSpeedMax);
+      ? Phaser.Math.Between(
+        parcelPatrolBalance.enemy.raiderSpeedMin,
+        parcelPatrolBalance.enemy.raiderSpeedMax,
+      )
+      : Phaser.Math.Between(
+        parcelPatrolBalance.enemy.scoutSpeedMin,
+        parcelPatrolBalance.enemy.scoutSpeedMax,
+      );
     enemy.setVelocityX(-speed);
     enemy.setAngularVelocity(kind === 'raider' ? -8 : 5);
     const body = enemy.body as Phaser.Physics.Arcade.Body;
@@ -266,23 +317,22 @@ export class ParcelGameScene extends Phaser.Scene {
 
   #spawnParcel(): void {
     const y = Phaser.Math.Between(135, this.scale.height - 125);
-    const parcel = this.#parcels.get(this.scale.width + 65, y, 'pp-parcel') as Phaser.Physics.Arcade.Image | null;
+    const parcel = this.#parcels.get(
+      this.scale.width + 65,
+      y,
+      'pp-parcel',
+    ) as Phaser.Physics.Arcade.Image | null;
     if (!parcel) {
       return;
     }
 
+    this.tweens.killTweensOf(parcel);
     parcel.enableBody(true, this.scale.width + 65, y, true, true);
+    parcel.setScale(1);
+    parcel.setAlpha(1);
     parcel.setVelocityX(-parcelPatrolBalance.parcel.speed);
     parcel.setAngularVelocity(30);
     parcel.setDepth(14);
-    this.tweens.add({
-      targets: parcel,
-      scale: 1.16,
-      duration: 420,
-      yoyo: true,
-      repeat: -1,
-      ease: 'Sine.inOut',
-    });
   }
 
   #tryFire(time: number): void {
@@ -290,7 +340,11 @@ export class ParcelGameScene extends Phaser.Scene {
       return;
     }
 
-    const bolt = this.#bolts.get(this.#player.x + 55, this.#player.y, 'pp-bolt') as Phaser.Physics.Arcade.Image | null;
+    const bolt = this.#bolts.get(
+      this.#player.x + 55,
+      this.#player.y,
+      'pp-bolt',
+    ) as Phaser.Physics.Arcade.Image | null;
     if (!bolt) {
       return;
     }
@@ -300,17 +354,21 @@ export class ParcelGameScene extends Phaser.Scene {
     bolt.setVelocityX(850);
     bolt.setDepth(18);
     this.#sfx.play('fire');
-    this.#player.setScale(0.96, 1.04);
-    this.tweens.add({ targets: this.#player, scaleX: 1, scaleY: 1, duration: 90 });
   }
 
   #fireEnemyBolt(enemy: Phaser.Physics.Arcade.Image): void {
-    const bullet = this.#enemyBolts.get(enemy.x - 38, enemy.y, 'pp-enemy-bolt') as Phaser.Physics.Arcade.Image | null;
+    const bullet = this.#enemyBolts.get(
+      enemy.x - 38,
+      enemy.y,
+      'pp-enemy-bolt',
+    ) as Phaser.Physics.Arcade.Image | null;
     if (!bullet) {
       return;
     }
 
     bullet.enableBody(true, enemy.x - 38, enemy.y, true, true);
+    bullet.setScale(1);
+    bullet.setAlpha(1);
     bullet.setDepth(17);
     this.physics.moveToObject(bullet, this.#player, 280);
   }
@@ -331,7 +389,11 @@ export class ParcelGameScene extends Phaser.Scene {
 
     if (hp > 0) {
       enemy.setTintFill(0xffffff);
-      this.time.delayedCall(70, () => enemy.active && enemy.clearTint());
+      this.time.delayedCall(70, () => {
+        if (enemy.active) {
+          enemy.clearTint();
+        }
+      });
       return;
     }
 
@@ -354,6 +416,7 @@ export class ParcelGameScene extends Phaser.Scene {
       return;
     }
 
+    this.tweens.killTweensOf(parcel);
     parcel.disableBody(true, true);
     this.#deliveries += 1;
     const awarded = Math.round(parcelPatrolBalance.parcel.value * this.#combo);
@@ -413,7 +476,11 @@ export class ParcelGameScene extends Phaser.Scene {
 
     for (const child of this.#enemyBolts.getChildren()) {
       const bullet = child as Phaser.Physics.Arcade.Image;
-      if (bullet.active && (bullet.x < -60 || bullet.y < -60 || bullet.y > this.scale.height + 60)) {
+      if (bullet.active && (
+        bullet.x < -60 ||
+        bullet.y < -60 ||
+        bullet.y > this.scale.height + 60
+      )) {
         bullet.disableBody(true, true);
       }
     }
@@ -421,6 +488,7 @@ export class ParcelGameScene extends Phaser.Scene {
     for (const child of this.#parcels.getChildren()) {
       const parcel = child as Phaser.Physics.Arcade.Image;
       if (parcel.active && parcel.x < -70) {
+        this.tweens.killTweensOf(parcel);
         parcel.disableBody(true, true);
         this.#combo = 1;
       }
@@ -431,12 +499,16 @@ export class ParcelGameScene extends Phaser.Scene {
     this.#scoreText.setText(`SCORE ${String(this.#score).padStart(6, '0')}`);
     this.#deliveriesText.setText(`PARCELS ${this.#deliveries}`);
     this.#comboText.setText(`COMBO x${this.#combo.toFixed(1)}`);
-    this.#livesText.setText(Array.from({ length: Math.max(0, this.#lives) }, () => '♥').join(' '));
+    this.#livesText.setText(
+      Array.from({ length: Math.max(0, this.#lives) }, () => '♥').join(' '),
+    );
     const seconds = Math.ceil(this.#remainingMs / 1000);
     this.#timeText.setText(`TIME ${String(seconds).padStart(2, '0')}`);
     const ratio = this.#remainingMs / (parcelPatrolBalance.missionDurationSeconds * 1000);
     this.#timeBar.setScale(Phaser.Math.Clamp(ratio, 0, 1), 1);
-    this.#timeBar.setFillStyle(ratio < 0.2 ? 0xff7184 : ratio < 0.45 ? 0xffd36f : 0x59e7b0);
+    this.#timeBar.setFillStyle(
+      ratio < 0.2 ? 0xff7184 : ratio < 0.45 ? 0xffd36f : 0x59e7b0,
+    );
   }
 
   #floatScore(x: number, y: number, message: string): void {
@@ -500,6 +572,10 @@ export class ParcelGameScene extends Phaser.Scene {
     this.time.delayedCall(380, () => this.scene.start('parcel-result', result));
   }
 
+  readonly #handleFireKey = (): void => {
+    this.#tryFire(this.time.now);
+  };
+
   readonly #handlePointerMove = (pointer: Phaser.Input.Pointer): void => {
     this.#pointerTargetY = Phaser.Math.Clamp(pointer.y, 105, this.scale.height - 82);
   };
@@ -513,6 +589,7 @@ export class ParcelGameScene extends Phaser.Scene {
     this.#services.platform.gameplayStop();
     this.input.off(Phaser.Input.Events.POINTER_MOVE, this.#handlePointerMove, this);
     this.input.off(Phaser.Input.Events.POINTER_DOWN, this.#handlePointerDown, this);
-    this.#fireKey?.removeAllListeners();
+    this.#fireKey?.off('down', this.#handleFireKey, this);
+    this.tweens.killTweensOf(this.#parcels.getChildren());
   };
 }
