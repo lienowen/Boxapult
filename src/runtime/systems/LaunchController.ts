@@ -34,6 +34,14 @@ export class LaunchController {
     scene.input.on(Phaser.Input.Events.POINTER_UP_OUTSIDE, this.#handlePointerUp, this);
   }
 
+  get isAiming(): boolean {
+    return this.#aiming;
+  }
+
+  get currentSolution(): AimSolution | null {
+    return this.#solution;
+  }
+
   reset(): void {
     this.#aiming = false;
     this.#solution = null;
