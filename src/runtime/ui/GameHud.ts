@@ -31,11 +31,20 @@ export class GameHud {
       color: '#f1c27d',
     }).setScrollFactor(0).setDepth(100);
 
-    this.#instructionText = scene.add.text(960, 980, 'DRAG THE BOX BACK · RELEASE TO LAUNCH', {
+    this.#instructionText = scene.add.text(960, 850, 'DRAG BACK · RELEASE TO LAUNCH', {
       fontFamily: 'Arial, sans-serif',
-      fontSize: '26px',
-      color: '#dce9ff',
+      fontSize: '24px',
+      color: '#eef5ff',
       fontStyle: 'bold',
+      backgroundColor: '#0e192a',
+      padding: { x: 18, y: 11 },
+      shadow: {
+        offsetX: 0,
+        offsetY: 3,
+        color: '#000000',
+        blur: 6,
+        fill: true,
+      },
     }).setOrigin(0.5).setScrollFactor(0).setDepth(100);
 
     const panel = scene.add.rectangle(0, 0, 620, 220, 0x0e192a, 0.94)
