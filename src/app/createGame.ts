@@ -10,6 +10,8 @@ export function createGame(parent: string): Phaser.Game {
     platform: new LocalPlatformAdapter(),
     save: new LocalStorageSaveAdapter('boxapult_save_v1'),
   };
+  const debugTelemetryEnabled =
+    import.meta.env.DEV || new URLSearchParams(window.location.search).get('debug') === '1';
 
   return new Phaser.Game({
     type: Phaser.AUTO,
@@ -44,6 +46,7 @@ export function createGame(parent: string): Phaser.Game {
     callbacks: {
       preBoot: (game) => {
         game.registry.set('services', services);
+        game.registry.set('debugTelemetryEnabled', debugTelemetryEnabled);
       },
     },
     scene: [BootScene, GameplayScene],
