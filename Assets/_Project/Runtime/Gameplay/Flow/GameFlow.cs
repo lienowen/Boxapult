@@ -39,7 +39,9 @@ namespace Boxapult.Gameplay.Flow
         {
             EnsureInitialized();
 
-            if (Current is not (GamePhase.Aiming or GamePhase.Flying or GamePhase.Resolving))
+            if (Current != GamePhase.Aiming &&
+                Current != GamePhase.Flying &&
+                Current != GamePhase.Resolving)
             {
                 return false;
             }
@@ -66,10 +68,10 @@ namespace Boxapult.Gameplay.Flow
             {
                 GamePhase.Boot => next == GamePhase.LoadingLevel,
                 GamePhase.LoadingLevel => next == GamePhase.Aiming,
-                GamePhase.Aiming => next is GamePhase.Flying or GamePhase.Paused,
-                GamePhase.Flying => next is GamePhase.Resolving or GamePhase.Paused,
-                GamePhase.Resolving => next is GamePhase.Success or GamePhase.Failure or GamePhase.Paused,
-                GamePhase.Success => next == GamePhase.Results,
+                GamePhase.Aiming => next is GamePhase.Flying or GamePhase.Paused or GamePhase.LoadingLevel,
+                GamePhase.Flying => next is GamePhase.Resolving or GamePhase.Paused or GamePhase.LoadingLevel,
+                GamePhase.Resolving => next is GamePhase.Success or GamePhase.Failure or GamePhase.Paused or GamePhase.LoadingLevel,
+                GamePhase.Success => next is GamePhase.Results or GamePhase.LoadingLevel,
                 GamePhase.Failure => next is GamePhase.Results or GamePhase.LoadingLevel,
                 GamePhase.Results => next == GamePhase.LoadingLevel,
                 GamePhase.Paused => false,
