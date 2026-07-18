@@ -38,7 +38,6 @@ export class GameplayScene extends Phaser.Scene {
     this.#flow.moveTo(GamePhase.Loading);
 
     this.matter.set60Hz();
-    this.matter.world.setBounds(0, 0, 1920, 1080, 64, true, true, true, true);
 
     const builder = new LevelBuilder(this, gameBalance);
     this.#runtime = builder.build(this.#level);
