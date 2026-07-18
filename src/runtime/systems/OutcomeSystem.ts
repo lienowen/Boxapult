@@ -8,6 +8,7 @@ import {
   type FlightFailureReason,
 } from '../../domain/outcome/evaluateFlightOutcome';
 import type { IntegrityModel } from '../../domain/package/IntegrityModel';
+import { getMatterBody } from '../physics/getMatterBody';
 
 export class OutcomeSystem {
   #stationaryDurationMs = 0;
@@ -32,7 +33,7 @@ export class OutcomeSystem {
       return;
     }
 
-    const body = this.packageImage.body;
+    const body = getMatterBody(this.packageImage);
     if (!body) {
       return;
     }
