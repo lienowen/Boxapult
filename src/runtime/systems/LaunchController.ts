@@ -1,8 +1,12 @@
 import Phaser from 'phaser';
-import type { LaunchBalance, AimSolution } from '../../domain/launch/calculateAimSolution';
-import { calculateAimSolution } from '../../domain/launch/calculateAimSolution';
+import type {
+  PackageBalance,
+  TrajectoryPreviewBalance,
+} from '../../content/config/gameBalance';
 import { GameFlow } from '../../domain/flow/GameFlow';
 import { GamePhase } from '../../domain/flow/GamePhase';
+import type { AimSolution, LaunchBalance } from '../../domain/launch/calculateAimSolution';
+import { calculateAimSolution } from '../../domain/launch/calculateAimSolution';
 import type { Vector2 } from '../../domain/launch/Vector2';
 import { TrajectoryPreview } from './TrajectoryPreview';
 
@@ -16,11 +20,13 @@ export class LaunchController {
     private readonly scene: Phaser.Scene,
     private readonly packageImage: Phaser.Physics.Matter.Image,
     private readonly flow: GameFlow,
-    private readonly balance: LaunchBalance,
+    private readonly launchBalance: LaunchBalance,
+    private readonly packageBalance: PackageBalance,
+    trajectoryBalance: TrajectoryPreviewBalance,
     origin: Vector2,
   ) {
     this.#origin = origin;
-    this.#preview = new TrajectoryPreview(scene);
+    this.#preview = new TrajectoryPreview(scene, trajectoryBalance);
 
     scene.input.on(Phaser.Input.Events.POINTER_DOWN, this.#handlePointerDown, this);
     scene.input.on(Phaser.Input.Events.POINTER_MOVE, this.#handlePointerMove, this);
@@ -53,7 +59,13 @@ export class LaunchController {
     }
 
     const point = this.#worldPoint(pointer);
-    if (Phaser.Math.Distance.Between(point.x, point.y, this.packageImage.x, this.packageImage.y) > 120) {
+    const distance = Phaser.Math.Distance.Between(
+      point.x,
+      point.y,
+      this.packageImage.x,
+      this.packageImage.y,
+    );
+    if (distance > this.packageBalance.aimGrabRadiusPixels) {
       return;
     }
 
@@ -86,12 +98,14 @@ export class LaunchController {
     this.packageImage.setPosition(solution.origin.x, solution.origin.y);
     this.packageImage.setStatic(false);
     this.packageImage.setVelocity(solution.velocity.x, solution.velocity.y);
-    this.packageImage.setAngularVelocity(0.025 * solution.strength01);
+    this.packageImage.setAngularVelocity(
+      this.packageBalance.angularVelocityAtFullStrength * solution.strength01,
+    );
     this.flow.moveTo(GamePhase.Flying);
   };
 
   #updateAim(pointer: Vector2): void {
-    const solution = calculateAimSolution(this.#origin, pointer, this.balance);
+    const solution = calculateAimSolution(this.#origin, pointer, this.launchBalance);
     this.#solution = solution;
     this.packageImage.setPosition(solution.packagePosition.x, solution.packagePosition.y);
     this.#preview.draw(solution);
