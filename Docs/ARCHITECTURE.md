@@ -19,10 +19,10 @@ Dependencies only point inward or toward stable contracts. `app` is the only com
 
 ## Responsibilities
 
-- `domain`: state machine, launch calculation, level validation, integrity and scoring rules.
+- `domain`: state machine, launch calculation, level validation, integrity and outcome rules.
 - `application`: stable ports such as `PlatformPort` and `SavePort`.
 - `content`: declarative balance and level data with no executable callbacks.
-- `runtime`: Phaser scenes, entity construction, input, outcome checks, HUD and feedback.
+- `runtime`: Phaser scenes, entity construction, input, outcome execution, HUD and feedback.
 - `infrastructure`: LocalStorage, local preview, and future CrazyGames SDK adapters.
 - `app`: creates adapters and Phaser configuration; contains no gameplay rules.
 
@@ -36,6 +36,8 @@ Dependencies only point inward or toward stable contracts. `app` is the only com
 6. Restart reconstructs the level cleanly.
 7. Platform lifecycle calls go only through `PlatformPort`.
 8. Production art never owns collision geometry.
+9. `OutcomeSystem` is the only runtime authority allowed to resolve success or failure.
+10. Launch, package physics, trajectory preview and failure thresholds come from `gameBalance`; levels cannot override global feel.
 
 ## Quality gate
 
