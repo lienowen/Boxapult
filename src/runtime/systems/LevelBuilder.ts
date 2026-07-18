@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
+import type { GameBalance } from '../../content/config/gameBalance';
 import type { LevelDefinition } from '../../domain/level/LevelDefinition';
 import { IntegrityModel } from '../../domain/package/IntegrityModel';
-import type { GameBalance } from '../../content/config/gameBalance';
 
 export interface LevelRuntime {
   readonly package: Phaser.Physics.Matter.Image;
@@ -42,6 +42,7 @@ export class LevelBuilder {
       })
       .setOrigin(0.5);
 
+    const packageBalance = this.balance.package;
     const packageImage = this.scene.matter.add.image(
       level.launchPoint.x,
       level.launchPoint.y,
@@ -49,14 +50,16 @@ export class LevelBuilder {
       undefined,
       {
         label: 'package',
-        friction: 0.45,
-        frictionAir: 0.008,
-        restitution: 0.12,
-        density: 0.002,
+        friction: packageBalance.friction,
+        frictionAir: packageBalance.frictionAir,
+        restitution: packageBalance.restitution,
+        density: packageBalance.density,
       },
     );
-    packageImage.setDisplaySize(84, 62);
-    packageImage.setRectangle(84, 62, { chamfer: { radius: 5 } });
+    packageImage.setDisplaySize(packageBalance.widthPixels, packageBalance.heightPixels);
+    packageImage.setRectangle(packageBalance.widthPixels, packageBalance.heightPixels, {
+      chamfer: { radius: packageBalance.chamferRadiusPixels },
+    });
     packageImage.setTint(0xd99a4e);
     packageImage.setStatic(true);
     packageImage.setDepth(10);
