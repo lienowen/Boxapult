@@ -1,88 +1,46 @@
-# Boxapult architecture
+# Architecture
 
-## Architectural goal
+## Purpose
 
-Keep the physics loop small, deterministic enough for level design, and independent from platform SDKs and UI. New levels must be data, not code.
+Boxapult is a small browser game, not a general-purpose engine. The architecture prevents duplicated rules, incompatible assets, per-level patches, oversized systems, and platform code mixed into gameplay.
 
-## Runtime assemblies
-
-### `Boxapult.Core`
-
-Small reusable primitives only. It must not know about gameplay, UI, storage, ads, or CrazyGames.
-
-### `Boxapult.Gameplay`
-
-Game rules, state, level definitions, runtime configuration, and service contracts. It owns the meaning of the game but does not know how data is stored or how the platform SDK works.
-
-### `Boxapult.Presentation`
-
-Camera, UI, audio, animation, visual feedback, and input presentation. It may observe gameplay but must not become the source of gameplay truth.
-
-### `Boxapult.Infrastructure`
-
-Implementations for persistence, platform SDKs, analytics, ads, remote configuration, and browser-specific behavior. `PlayerPrefs`, CrazyGames SDK calls, and browser bridges belong here only.
-
-### `Boxapult.Bootstrap`
-
-The sole composition root. It constructs concrete services and injects `GameContext` into scene receivers. No other module may construct the full application graph.
-
-### `Boxapult.Editor`
-
-Level authoring, validation, import rules, and build gates. Editor code never enters a player build.
-
-## Dependency rule
-
-Dependencies only point inward:
+## Dependency direction
 
 ```text
-Core <- Gameplay <- Presentation
-                 <- Infrastructure
-
-Core + Gameplay + Presentation + Infrastructure <- Bootstrap
-Core + Gameplay <- Editor
+domain          <- pure rules, no Phaser, no browser APIs
+application     <- ports and use-case contracts; may depend on domain
+content         <- level and balance data; may depend on domain types
+runtime         <- Phaser scenes and systems; depends on application/content/domain
+infrastructure  <- browser and CrazyGames adapters; depends on application ports
+app             <- composition root; wires runtime and infrastructure
 ```
 
-A dependency in the opposite direction is an architecture defect, not a convenience.
+Dependencies only point inward or toward stable contracts. `app` is the only composition root.
 
-## Scene strategy
+## Responsibilities
 
-The release target has three scenes:
+- `domain`: state machine, launch calculation, level validation, integrity and scoring rules.
+- `application`: stable ports such as `PlatformPort` and `SavePort`.
+- `content`: declarative balance and level data with no executable callbacks.
+- `runtime`: Phaser scenes, entity construction, input, outcome checks, HUD and feedback.
+- `infrastructure`: LocalStorage, local preview, and future CrazyGames SDK adapters.
+- `app`: creates adapters and Phaser configuration; contains no gameplay rules.
 
-1. `Boot` — platform initialization and first playable loading.
-2. `Gameplay` — all campaign levels, tutorial steps, and daily contracts.
-3. `Sandbox` — development-only physics and content testing.
+## Runtime rules
 
-There is never one Unity scene per level.
+1. Matter Physics runs at a fixed 60 Hz step.
+2. One gameplay scene serves every level.
+3. Levels are plain data selected from one catalog.
+4. A new mechanic requires a reusable system and at least three intended level uses.
+5. A level ID may never trigger special-case code.
+6. Restart reconstructs the level cleanly.
+7. Platform lifecycle calls go only through `PlatformPort`.
+8. Production art never owns collision geometry.
 
-## Level strategy
+## Quality gate
 
-`LevelDefinition` is the source of level structure. It contains identifiers and placements, not direct ad-hoc scripts. A level may only choose registered prefabs, positions, rotations, variants, link groups, package type, and goals.
+`npm run check` must pass before pushing. It performs architecture validation, pure domain tests, strict TypeScript compilation, and a production Vite build.
 
-A new mechanic must be reusable in at least three levels. Otherwise it is removed or redesigned.
+## Deliberate non-goals
 
-## Composition and state
-
-- No service locator.
-- No mutable global singleton.
-- No third-party DI container.
-- `GameBootstrapper` creates the graph once.
-- Scene components receive a `GameContext` through `IGameContextReceiver`.
-- `GameFlow` is the single authority for high-level runtime phase.
-
-## Physics ownership
-
-Global physics values live in `GameRuntimeConfig` and are applied once by the bootstrapper. Level files cannot modify gravity, fixed timestep, damage thresholds, or package rigidbody defaults.
-
-Physics forces are applied in fixed-time code. Visual interpolation belongs to presentation. Framerate-dependent force calculations are forbidden.
-
-## Platform ownership
-
-Game code calls `IPlatformService`; it never calls CrazyGames directly. During local development, `LocalPlatformService` is used. A future `CrazyGamesPlatformService` will replace it without changing gameplay code.
-
-## Save ownership
-
-Game code calls `IGameSaveService`; only infrastructure can use `PlayerPrefs`, cloud data, JSON files, or platform storage.
-
-## Build gates
-
-A build is blocked when level IDs are duplicated, goal zones are invalid, or placed objects have no registered ID. Repository validation also blocks forbidden assembly references and common architecture shortcuts.
+The first release does not use React, an ECS framework, a dependency injection library, Redux-style global state, procedural generation, multiplayer, backend services, or a custom editor before plain level data proves insufficient.
