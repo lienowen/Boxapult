@@ -5,6 +5,7 @@ import { getLevel } from '../../content/levels/levelCatalog';
 import { GameFlow } from '../../domain/flow/GameFlow';
 import { GamePhase } from '../../domain/flow/GamePhase';
 import type { LevelDefinition } from '../../domain/level/LevelDefinition';
+import { DebugTelemetryPanel } from '../debug/DebugTelemetryPanel';
 import { ImpactSystem } from '../systems/ImpactSystem';
 import { LaunchController } from '../systems/LaunchController';
 import { LevelBuilder, type LevelRuntime } from '../systems/LevelBuilder';
@@ -24,6 +25,7 @@ export class GameplayScene extends Phaser.Scene {
   #impact!: ImpactSystem;
   #outcome!: OutcomeSystem;
   #hud!: GameHud;
+  #debugTelemetry: DebugTelemetryPanel | null = null;
   #restartKey: Phaser.Input.Keyboard.Key | null = null;
 
   constructor() {
@@ -61,7 +63,25 @@ export class GameplayScene extends Phaser.Scene {
       gameBalance,
       this.#flow,
     );
-    this.#hud = new GameHud(this, this.#level.id, this.#runtime.integrity, this.#flow);
+    this.#hud = new GameHud(
+      this,
+      this.#level.id,
+      this.#runtime.integrity,
+      this.#flow,
+      () => this.#outcome.failureReason,
+    );
+
+    if (this.registry.get('debugTelemetryEnabled') === true) {
+      this.#debugTelemetry = new DebugTelemetryPanel(
+        this,
+        this.#runtime.package,
+        this.#runtime.integrity,
+        this.#flow,
+        this.#launch,
+        this.#outcome,
+        gameBalance,
+      );
+    }
 
     this.#restartKey = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.R) ?? null;
     this.#restartKey?.on('down', this.#restartLevel, this);
@@ -82,6 +102,7 @@ export class GameplayScene extends Phaser.Scene {
   override update(_time: number, delta: number): void {
     this.#outcome.update(delta);
     this.#hud.updateIntegrity(this.#runtime.integrity);
+    this.#debugTelemetry?.update(delta);
   }
 
   readonly #handleResultPointer = (): void => {
@@ -101,5 +122,7 @@ export class GameplayScene extends Phaser.Scene {
     this.#launch.destroy();
     this.#impact.destroy();
     this.#hud.destroy();
+    this.#debugTelemetry?.destroy();
+    this.#debugTelemetry = null;
   };
 }
