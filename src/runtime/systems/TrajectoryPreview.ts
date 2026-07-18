@@ -14,8 +14,17 @@ export class TrajectoryPreview {
 
   draw(solution: AimSolution): void {
     this.#graphics.clear();
-    this.#graphics.fillStyle(solution.valid ? 0xffffff : 0xe86c6c, 0.82);
 
+    const color = solution.valid ? 0xffffff : 0xe86c6c;
+    this.#graphics.lineStyle(3, color, 0.55);
+    this.#graphics.lineBetween(
+      solution.packagePosition.x,
+      solution.packagePosition.y,
+      solution.origin.x,
+      solution.origin.y,
+    );
+
+    this.#graphics.fillStyle(color, 0.82);
     for (let index = 1; index <= this.balance.pointCount; index += 1) {
       const time = index * this.balance.timeStep;
       const x = solution.origin.x + solution.velocity.x * time * this.balance.velocityScale;
@@ -26,6 +35,21 @@ export class TrajectoryPreview {
       const radius = Math.max(2.5, 5.5 - index * 0.18);
       this.#graphics.fillCircle(x, y, radius);
     }
+
+    const meterWidth = 150;
+    const meterHeight = 12;
+    const meterX = solution.origin.x - meterWidth / 2;
+    const meterY = solution.origin.y - 92;
+    this.#graphics.fillStyle(0x0e192a, 0.9);
+    this.#graphics.fillRoundedRect(meterX - 4, meterY - 4, meterWidth + 8, meterHeight + 8, 6);
+    this.#graphics.fillStyle(solution.valid ? 0x7bf0a2 : 0xe86c6c, 0.95);
+    this.#graphics.fillRoundedRect(
+      meterX,
+      meterY,
+      meterWidth * solution.strength01,
+      meterHeight,
+      4,
+    );
   }
 
   clear(): void {
