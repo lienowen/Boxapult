@@ -28,6 +28,7 @@ export class GameScene extends Phaser.Scene {
     this.shieldUntil=0;
     this.rapidUntil=0;
     this.nextEnemyShot=0;
+    this.pauseStartedAt=null;
     this.controls=null;
   }
 
@@ -281,18 +282,39 @@ export class GameScene extends Phaser.Scene {
 
   setRoutePaused(paused){
     if(paused){
+      if(this.pauseStartedAt===null)this.pauseStartedAt=this.time.now;
       this.player.setVelocity(0,0);
       this.physics.world.pause();
       this.registry.get('platform').gameplayStop();
       return;
     }
+
+    const pausedFor=this.pauseStartedAt===null?0:this.time.now-this.pauseStartedAt;
+    if(pausedFor>0)this.shiftGameplayTimestamps(pausedFor);
+    this.pauseStartedAt=null;
     this.physics.world.resume();
     if(!this.finished)this.registry.get('platform').gameplayStart();
+  }
+
+  shiftGameplayTimestamps(durationMs){
+    if(this.lastFire>-9000)this.lastFire+=durationMs;
+    if(this.invulnerableUntil>0)this.invulnerableUntil+=durationMs;
+    if(this.shieldUntil>0)this.shieldUntil+=durationMs;
+    if(this.rapidUntil>0)this.rapidUntil+=durationMs;
+
+    for(const enemy of this.enemies.getChildren()){
+      if(!enemy.active)continue;
+      const bornAt=enemy.getData('bornAt');
+      const nextShot=enemy.getData('nextShot');
+      if(Number.isFinite(bornAt))enemy.setData('bornAt',bornAt+durationMs);
+      if(Number.isFinite(nextShot))enemy.setData('nextShot',nextShot+durationMs);
+    }
   }
 
   quitRoute(){
     if(this.finished)return;
     this.finished=true;
+    this.pauseStartedAt=null;
     this.physics.world.resume();
     this.registry.get('platform').gameplayStop();
     this.scene.start('routes');
@@ -344,6 +366,7 @@ export class GameScene extends Phaser.Scene {
 
   shutdown(){
     this.registry.get('platform').gameplayStop();
+    this.pauseStartedAt=null;
     this.physics.world.resume();
     this.controls?.destroy();
     this.controls=null;
