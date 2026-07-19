@@ -1,0 +1,25 @@
+export const ASSET_KEYS = Object.freeze({
+  gameplayAtlas: 'gameplay-atlas',
+  uiAtlas: 'ui-atlas',
+  backgrounds: Object.freeze({
+    downtownFar: 'bg-downtown-far',
+    downtownNear: 'bg-downtown-near',
+    harborFar: 'bg-harbor-far',
+    harborNear: 'bg-harbor-near',
+    nightFar: 'bg-night-far',
+    nightNear: 'bg-night-near',
+  }),
+  frames: Object.freeze({
+    playerIdle: 'player-idle-01',
+    playerFire: 'player-fire-01',
+    playerDamage: 'player-damage-01',
+    scout: 'enemy-scout-fly-01',
+    raider: 'enemy-raider-fly-01',
+    interceptor: 'enemy-interceptor-fly-01',
+    parcel: 'parcel-normal',
+    shield: 'pickup-shield-01',
+    rapid: 'pickup-rapid-01',
+    playerBolt: 'bolt-player',
+    enemyBolt: 'bolt-enemy-01',
+  }),
+});
