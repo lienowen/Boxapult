@@ -6,6 +6,23 @@ export class BootScene extends Phaser.Scene {
   constructor(){super('boot');}
 
   preload(){
+    const width=this.scale.width;
+    const height=this.scale.height;
+    this.cameras.main.setBackgroundColor('#10233d');
+    this.add.text(width/2,height/2-105,'PARCEL PATROL',{fontFamily:'Arial Black',fontSize:'44px',color:'#ffffff',stroke:'#07111d',strokeThickness:7}).setOrigin(.5);
+    this.add.text(width/2,height/2-48,'PREPARING DELIVERY ROUTES',{fontFamily:'Arial',fontSize:'18px',color:'#9fefff',fontStyle:'bold',letterSpacing:3}).setOrigin(.5);
+    this.add.rectangle(width/2,height/2+20,520,24,0x06101d,.9).setStrokeStyle(2,0x75ddec,.35);
+    const progressBar=this.add.rectangle(width/2-252,height/2+20,504,12,0x55e6b0).setOrigin(0,.5);
+    const progressText=this.add.text(width/2,height/2+62,'0%',{fontFamily:'Arial Black',fontSize:'20px',color:'#ffffff'}).setOrigin(.5);
+    const statusText=this.add.text(width/2,height/2+98,'Loading game art…',{fontFamily:'Arial',fontSize:'16px',color:'#cde7f2'}).setOrigin(.5);
+
+    this.load.on('progress',value=>{
+      progressBar.setScale(Phaser.Math.Clamp(value,0,1),1);
+      progressText.setText(`${Math.round(value*100)}%`);
+    });
+    this.load.on('fileprogress',file=>statusText.setText(`Loading ${formatAssetName(file.key)}…`));
+    this.load.on('loaderror',()=>this.registry.set('assetLoadFailed',true));
+
     this.load.atlas(
       ASSET_KEYS.gameplayAtlas,
       ASSET_KEYS.atlasSources.gameplay.textureURL,
@@ -19,7 +36,10 @@ export class BootScene extends Phaser.Scene {
   }
 
   create(){
-    const atlasReady = this.textures.exists(ASSET_KEYS.gameplayAtlas) && this.textures.exists(ASSET_KEYS.uiAtlas);
+    const atlasReady =
+      this.registry.get('assetLoadFailed')!==true &&
+      this.textures.exists(ASSET_KEYS.gameplayAtlas) &&
+      this.textures.exists(ASSET_KEYS.uiAtlas);
     this.registry.set('assetMode', atlasReady ? 'atlas' : 'fallback');
 
     if (atlasReady) {
@@ -29,7 +49,8 @@ export class BootScene extends Phaser.Scene {
       ensureTextures(this);
     }
 
-    this.scene.start('title');
+    this.cameras.main.fadeOut(180,5,15,26);
+    this.time.delayedCall(190,()=>this.scene.start('title'));
   }
 }
 
@@ -58,4 +79,8 @@ function create(scene,key,frameNames,frameRate,repeat){
     frameRate,
     repeat,
   });
+}
+
+function formatAssetName(key){
+  return String(key).replaceAll('-',' ').toUpperCase();
 }
