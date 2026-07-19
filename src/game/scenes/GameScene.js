@@ -10,6 +10,7 @@ import {
 } from '../systems/AssetCatalog.js';
 import { Backdrop } from '../systems/Backdrop.js';
 import { SpawnDirector } from '../systems/SpawnDirector.js';
+import { GameplayControlsOverlay } from '../ui/GameplayControlsOverlay.js';
 import { Hud } from '../ui/Hud.js';
 
 const ENEMY_POINTS={scout:100,raider:220,interceptor:170};
@@ -27,6 +28,7 @@ export class GameScene extends Phaser.Scene {
     this.shieldUntil=0;
     this.rapidUntil=0;
     this.nextEnemyShot=0;
+    this.controls=null;
   }
 
   create(){
@@ -63,11 +65,17 @@ export class GameScene extends Phaser.Scene {
 
     this.events.once('shutdown',this.shutdown,this);
     this.registry.get('platform').gameplayStart();
+    this.controls=new GameplayControlsOverlay(this,{
+      audio:this.audio,
+      settings:this.registry.get('settings'),
+      onPauseChange:(paused)=>this.setRoutePaused(paused),
+      onQuit:()=>this.quitRoute(),
+    });
     this.cameras.main.fadeIn(200,5,15,26);
   }
 
   update(time,delta){
-    if(this.finished)return;
+    if(this.finished||this.controls?.blocksGameplay)return;
     this.backdrop.update(delta,1+this.session.score/13000);
     this.movePlayer(delta);
     this.session.tick(delta);
@@ -161,6 +169,7 @@ export class GameScene extends Phaser.Scene {
   }
 
   fire(){
+    if(this.controls?.blocksGameplay)return;
     const time=this.time.now;
     const cooldown=time<this.rapidUntil?105:220;
     if(this.finished||time-this.lastFire<cooldown)return;
@@ -270,6 +279,25 @@ export class GameScene extends Phaser.Scene {
     return'';
   }
 
+  setRoutePaused(paused){
+    if(paused){
+      this.player.setVelocity(0,0);
+      this.physics.world.pause();
+      this.registry.get('platform').gameplayStop();
+      return;
+    }
+    this.physics.world.resume();
+    if(!this.finished)this.registry.get('platform').gameplayStart();
+  }
+
+  quitRoute(){
+    if(this.finished)return;
+    this.finished=true;
+    this.physics.world.resume();
+    this.registry.get('platform').gameplayStop();
+    this.scene.start('routes');
+  }
+
   finish(){
     if(this.finished)return;
     this.finished=true;
@@ -303,11 +331,22 @@ export class GameScene extends Phaser.Scene {
     }
   }
 
-  pointerMove(pointer){this.pointerY=Phaser.Math.Clamp(pointer.y,125,this.scale.height-80);}
-  pointerDown(pointer){this.pointerY=Phaser.Math.Clamp(pointer.y,125,this.scale.height-80);this.fire();}
+  pointerMove(pointer){
+    if(this.controls?.blocksGameplay)return;
+    this.pointerY=Phaser.Math.Clamp(pointer.y,125,this.scale.height-80);
+  }
+
+  pointerDown(pointer){
+    if(this.controls?.blocksGameplay)return;
+    this.pointerY=Phaser.Math.Clamp(pointer.y,125,this.scale.height-80);
+    this.fire();
+  }
 
   shutdown(){
     this.registry.get('platform').gameplayStop();
+    this.physics.world.resume();
+    this.controls?.destroy();
+    this.controls=null;
     this.fireKey?.off('down',this.fire,this);
     this.input.off('pointermove',this.pointerMove,this);
     this.input.off('pointerdown',this.pointerDown,this);
