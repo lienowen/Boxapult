@@ -11,24 +11,49 @@ const TONES = Object.freeze({
 
 export class AudioManager {
   #context = null;
+
+  constructor(settings = null) {
+    this.settings = settings;
+    this.muted = settings?.isMuted() === true;
+  }
+
   unlock() {
-    this.#context ??= new AudioContext();
+    const AudioContextClass = globalThis.AudioContext ?? globalThis.webkitAudioContext;
+    if (!AudioContextClass) return;
+    this.#context ??= new AudioContextClass();
     if (this.#context.state === 'suspended') void this.#context.resume();
   }
+
+  isMuted() {
+    return this.muted;
+  }
+
+  setMuted(muted) {
+    this.muted = muted === true;
+    this.settings?.setMuted(this.muted);
+    return this.muted;
+  }
+
+  toggleMuted() {
+    return this.setMuted(!this.muted);
+  }
+
   play(name) {
     const settings = TONES[name];
     const context = this.#context;
-    if (!settings || !context || context.state !== 'running') return;
+    if (this.muted || !settings || !context || context.state !== 'running') return;
     const [wave, start, end, duration, volume] = settings;
     const oscillator = context.createOscillator();
     const gain = context.createGain();
     oscillator.type = wave;
-    oscillator.connect(gain); gain.connect(context.destination);
+    oscillator.connect(gain);
+    gain.connect(context.destination);
     const now = context.currentTime;
     oscillator.frequency.setValueAtTime(start, now);
     oscillator.frequency.exponentialRampToValueAtTime(end, now + duration);
     gain.gain.setValueAtTime(volume, now);
     gain.gain.exponentialRampToValueAtTime(.001, now + duration);
-    oscillator.start(now); oscillator.stop(now + duration);
+    oscillator.start(now);
+    oscillator.stop(now + duration);
   }
 }
