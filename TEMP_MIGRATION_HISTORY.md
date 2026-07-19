@@ -1,0 +1,1 @@
+Staging commits were created while preparing a full-tree replacement. They contain no runtime changes and will disappear from the working tree after the canonical v0.3 commit.
