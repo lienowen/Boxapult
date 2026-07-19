@@ -1,6 +1,16 @@
 export const ASSET_KEYS = Object.freeze({
   gameplayAtlas: 'gameplay-atlas',
   uiAtlas: 'ui-atlas',
+  atlasSources: Object.freeze({
+    gameplay: Object.freeze({
+      textureURL: 'assets/runtime/gameplay-atlas.png',
+      atlasURL: 'assets/runtime/gameplay-atlas.json',
+    }),
+    ui: Object.freeze({
+      textureURL: 'assets/runtime/ui-atlas.png',
+      atlasURL: 'assets/runtime/ui-atlas.json',
+    }),
+  }),
   backgrounds: Object.freeze({
     downtownFar: 'bg-downtown-far',
     downtownNear: 'bg-downtown-near',
@@ -17,9 +27,27 @@ export const ASSET_KEYS = Object.freeze({
     raider: 'enemy-raider-fly-01',
     interceptor: 'enemy-interceptor-fly-01',
     parcel: 'parcel-normal',
+    parcelGlow: 'parcel-glow',
     shield: 'pickup-shield-01',
     rapid: 'pickup-rapid-01',
-    playerBolt: 'bolt-player',
+    playerBolt: 'bolt-player-01',
     enemyBolt: 'bolt-enemy-01',
+    titleLogo: 'ui-logo-title',
+  }),
+  animations: Object.freeze({
+    playerIdle: Object.freeze(['player-idle-01', 'player-idle-02', 'player-idle-03', 'player-idle-04']),
+    playerFire: Object.freeze(['player-fire-01', 'player-fire-02']),
+    playerDamage: Object.freeze(['player-damage-01', 'player-damage-02']),
+    scoutFly: Object.freeze(['enemy-scout-fly-01', 'enemy-scout-fly-02', 'enemy-scout-fly-03', 'enemy-scout-fly-04']),
+    raiderFly: Object.freeze(['enemy-raider-fly-01', 'enemy-raider-fly-02', 'enemy-raider-fly-03', 'enemy-raider-fly-04']),
+    raiderFire: Object.freeze(['enemy-raider-fire-01', 'enemy-raider-fire-02']),
+    interceptorFly: Object.freeze(['enemy-interceptor-fly-01', 'enemy-interceptor-fly-02', 'enemy-interceptor-fly-03', 'enemy-interceptor-fly-04']),
+    interceptorBoost: Object.freeze(['enemy-interceptor-boost-01', 'enemy-interceptor-boost-02']),
+    shield: Object.freeze(['pickup-shield-01', 'pickup-shield-02', 'pickup-shield-03', 'pickup-shield-04']),
+    rapid: Object.freeze(['pickup-rapid-01', 'pickup-rapid-02', 'pickup-rapid-03', 'pickup-rapid-04']),
+    playerBolt: Object.freeze(['bolt-player-01', 'bolt-player-02']),
+    enemyBolt: Object.freeze(['bolt-enemy-01', 'bolt-enemy-02', 'bolt-enemy-03', 'bolt-enemy-04']),
+    explosion: Object.freeze(['fx-explosion-01', 'fx-explosion-02', 'fx-explosion-03', 'fx-explosion-04', 'fx-explosion-05', 'fx-explosion-06', 'fx-explosion-07', 'fx-explosion-08']),
+    pickupBurst: Object.freeze(['fx-pickup-burst-01', 'fx-pickup-burst-02', 'fx-pickup-burst-03', 'fx-pickup-burst-04', 'fx-pickup-burst-05', 'fx-pickup-burst-06']),
   }),
 });

@@ -1,0 +1,1155 @@
+{
+  "frames": {
+    "bolt-enemy-01": {
+      "frame": {
+        "x": 2,
+        "y": 2,
+        "w": 88,
+        "h": 44
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 88,
+        "h": 44
+      },
+      "sourceSize": {
+        "w": 88,
+        "h": 44
+      }
+    },
+    "bolt-enemy-02": {
+      "frame": {
+        "x": 92,
+        "y": 2,
+        "w": 88,
+        "h": 44
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 88,
+        "h": 44
+      },
+      "sourceSize": {
+        "w": 88,
+        "h": 44
+      }
+    },
+    "bolt-enemy-03": {
+      "frame": {
+        "x": 182,
+        "y": 2,
+        "w": 88,
+        "h": 44
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 88,
+        "h": 44
+      },
+      "sourceSize": {
+        "w": 88,
+        "h": 44
+      }
+    },
+    "bolt-enemy-04": {
+      "frame": {
+        "x": 272,
+        "y": 2,
+        "w": 88,
+        "h": 44
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 88,
+        "h": 44
+      },
+      "sourceSize": {
+        "w": 88,
+        "h": 44
+      }
+    },
+    "bolt-player-01": {
+      "frame": {
+        "x": 362,
+        "y": 2,
+        "w": 76,
+        "h": 32
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 76,
+        "h": 32
+      },
+      "sourceSize": {
+        "w": 76,
+        "h": 32
+      }
+    },
+    "bolt-player-02": {
+      "frame": {
+        "x": 440,
+        "y": 2,
+        "w": 76,
+        "h": 32
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 76,
+        "h": 32
+      },
+      "sourceSize": {
+        "w": 76,
+        "h": 32
+      }
+    },
+    "enemy-interceptor-boost-01": {
+      "frame": {
+        "x": 518,
+        "y": 2,
+        "w": 192,
+        "h": 120
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 192,
+        "h": 120
+      },
+      "sourceSize": {
+        "w": 192,
+        "h": 120
+      }
+    },
+    "enemy-interceptor-boost-02": {
+      "frame": {
+        "x": 712,
+        "y": 2,
+        "w": 192,
+        "h": 120
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 192,
+        "h": 120
+      },
+      "sourceSize": {
+        "w": 192,
+        "h": 120
+      }
+    },
+    "enemy-interceptor-damage-01": {
+      "frame": {
+        "x": 906,
+        "y": 2,
+        "w": 192,
+        "h": 120
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 192,
+        "h": 120
+      },
+      "sourceSize": {
+        "w": 192,
+        "h": 120
+      }
+    },
+    "enemy-interceptor-fly-01": {
+      "frame": {
+        "x": 1100,
+        "y": 2,
+        "w": 192,
+        "h": 120
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 192,
+        "h": 120
+      },
+      "sourceSize": {
+        "w": 192,
+        "h": 120
+      }
+    },
+    "enemy-interceptor-fly-02": {
+      "frame": {
+        "x": 1294,
+        "y": 2,
+        "w": 192,
+        "h": 120
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 192,
+        "h": 120
+      },
+      "sourceSize": {
+        "w": 192,
+        "h": 120
+      }
+    },
+    "enemy-interceptor-fly-03": {
+      "frame": {
+        "x": 1488,
+        "y": 2,
+        "w": 192,
+        "h": 120
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 192,
+        "h": 120
+      },
+      "sourceSize": {
+        "w": 192,
+        "h": 120
+      }
+    },
+    "enemy-interceptor-fly-04": {
+      "frame": {
+        "x": 1682,
+        "y": 2,
+        "w": 192,
+        "h": 120
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 192,
+        "h": 120
+      },
+      "sourceSize": {
+        "w": 192,
+        "h": 120
+      }
+    },
+    "enemy-raider-damage-01": {
+      "frame": {
+        "x": 2,
+        "y": 124,
+        "w": 216,
+        "h": 128
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 216,
+        "h": 128
+      },
+      "sourceSize": {
+        "w": 216,
+        "h": 128
+      }
+    },
+    "enemy-raider-fire-01": {
+      "frame": {
+        "x": 220,
+        "y": 124,
+        "w": 216,
+        "h": 128
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 216,
+        "h": 128
+      },
+      "sourceSize": {
+        "w": 216,
+        "h": 128
+      }
+    },
+    "enemy-raider-fire-02": {
+      "frame": {
+        "x": 438,
+        "y": 124,
+        "w": 216,
+        "h": 128
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 216,
+        "h": 128
+      },
+      "sourceSize": {
+        "w": 216,
+        "h": 128
+      }
+    },
+    "enemy-raider-fly-01": {
+      "frame": {
+        "x": 656,
+        "y": 124,
+        "w": 216,
+        "h": 128
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 216,
+        "h": 128
+      },
+      "sourceSize": {
+        "w": 216,
+        "h": 128
+      }
+    },
+    "enemy-raider-fly-02": {
+      "frame": {
+        "x": 874,
+        "y": 124,
+        "w": 216,
+        "h": 128
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 216,
+        "h": 128
+      },
+      "sourceSize": {
+        "w": 216,
+        "h": 128
+      }
+    },
+    "enemy-raider-fly-03": {
+      "frame": {
+        "x": 1092,
+        "y": 124,
+        "w": 216,
+        "h": 128
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 216,
+        "h": 128
+      },
+      "sourceSize": {
+        "w": 216,
+        "h": 128
+      }
+    },
+    "enemy-raider-fly-04": {
+      "frame": {
+        "x": 1310,
+        "y": 124,
+        "w": 216,
+        "h": 128
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 216,
+        "h": 128
+      },
+      "sourceSize": {
+        "w": 216,
+        "h": 128
+      }
+    },
+    "enemy-scout-damage-01": {
+      "frame": {
+        "x": 1528,
+        "y": 124,
+        "w": 176,
+        "h": 104
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 176,
+        "h": 104
+      },
+      "sourceSize": {
+        "w": 176,
+        "h": 104
+      }
+    },
+    "enemy-scout-fly-01": {
+      "frame": {
+        "x": 1706,
+        "y": 124,
+        "w": 176,
+        "h": 104
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 176,
+        "h": 104
+      },
+      "sourceSize": {
+        "w": 176,
+        "h": 104
+      }
+    },
+    "enemy-scout-fly-02": {
+      "frame": {
+        "x": 2,
+        "y": 254,
+        "w": 176,
+        "h": 104
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 176,
+        "h": 104
+      },
+      "sourceSize": {
+        "w": 176,
+        "h": 104
+      }
+    },
+    "enemy-scout-fly-03": {
+      "frame": {
+        "x": 180,
+        "y": 254,
+        "w": 176,
+        "h": 104
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 176,
+        "h": 104
+      },
+      "sourceSize": {
+        "w": 176,
+        "h": 104
+      }
+    },
+    "enemy-scout-fly-04": {
+      "frame": {
+        "x": 358,
+        "y": 254,
+        "w": 176,
+        "h": 104
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 176,
+        "h": 104
+      },
+      "sourceSize": {
+        "w": 176,
+        "h": 104
+      }
+    },
+    "fx-explosion-01": {
+      "frame": {
+        "x": 536,
+        "y": 254,
+        "w": 256,
+        "h": 256
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 256,
+        "h": 256
+      },
+      "sourceSize": {
+        "w": 256,
+        "h": 256
+      }
+    },
+    "fx-explosion-02": {
+      "frame": {
+        "x": 794,
+        "y": 254,
+        "w": 256,
+        "h": 256
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 256,
+        "h": 256
+      },
+      "sourceSize": {
+        "w": 256,
+        "h": 256
+      }
+    },
+    "fx-explosion-03": {
+      "frame": {
+        "x": 1052,
+        "y": 254,
+        "w": 256,
+        "h": 256
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 256,
+        "h": 256
+      },
+      "sourceSize": {
+        "w": 256,
+        "h": 256
+      }
+    },
+    "fx-explosion-04": {
+      "frame": {
+        "x": 1310,
+        "y": 254,
+        "w": 256,
+        "h": 256
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 256,
+        "h": 256
+      },
+      "sourceSize": {
+        "w": 256,
+        "h": 256
+      }
+    },
+    "fx-explosion-05": {
+      "frame": {
+        "x": 1568,
+        "y": 254,
+        "w": 256,
+        "h": 256
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 256,
+        "h": 256
+      },
+      "sourceSize": {
+        "w": 256,
+        "h": 256
+      }
+    },
+    "fx-explosion-06": {
+      "frame": {
+        "x": 2,
+        "y": 512,
+        "w": 256,
+        "h": 256
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 256,
+        "h": 256
+      },
+      "sourceSize": {
+        "w": 256,
+        "h": 256
+      }
+    },
+    "fx-explosion-07": {
+      "frame": {
+        "x": 260,
+        "y": 512,
+        "w": 256,
+        "h": 256
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 256,
+        "h": 256
+      },
+      "sourceSize": {
+        "w": 256,
+        "h": 256
+      }
+    },
+    "fx-explosion-08": {
+      "frame": {
+        "x": 518,
+        "y": 512,
+        "w": 256,
+        "h": 256
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 256,
+        "h": 256
+      },
+      "sourceSize": {
+        "w": 256,
+        "h": 256
+      }
+    },
+    "fx-pickup-burst-01": {
+      "frame": {
+        "x": 776,
+        "y": 512,
+        "w": 192,
+        "h": 192
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 192,
+        "h": 192
+      },
+      "sourceSize": {
+        "w": 192,
+        "h": 192
+      }
+    },
+    "fx-pickup-burst-02": {
+      "frame": {
+        "x": 970,
+        "y": 512,
+        "w": 192,
+        "h": 192
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 192,
+        "h": 192
+      },
+      "sourceSize": {
+        "w": 192,
+        "h": 192
+      }
+    },
+    "fx-pickup-burst-03": {
+      "frame": {
+        "x": 1164,
+        "y": 512,
+        "w": 192,
+        "h": 192
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 192,
+        "h": 192
+      },
+      "sourceSize": {
+        "w": 192,
+        "h": 192
+      }
+    },
+    "fx-pickup-burst-04": {
+      "frame": {
+        "x": 1358,
+        "y": 512,
+        "w": 192,
+        "h": 192
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 192,
+        "h": 192
+      },
+      "sourceSize": {
+        "w": 192,
+        "h": 192
+      }
+    },
+    "fx-pickup-burst-05": {
+      "frame": {
+        "x": 1552,
+        "y": 512,
+        "w": 192,
+        "h": 192
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 192,
+        "h": 192
+      },
+      "sourceSize": {
+        "w": 192,
+        "h": 192
+      }
+    },
+    "fx-pickup-burst-06": {
+      "frame": {
+        "x": 1746,
+        "y": 512,
+        "w": 192,
+        "h": 192
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 192,
+        "h": 192
+      },
+      "sourceSize": {
+        "w": 192,
+        "h": 192
+      }
+    },
+    "parcel-glow": {
+      "frame": {
+        "x": 2,
+        "y": 770,
+        "w": 116,
+        "h": 100
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 116,
+        "h": 100
+      },
+      "sourceSize": {
+        "w": 116,
+        "h": 100
+      }
+    },
+    "parcel-normal": {
+      "frame": {
+        "x": 120,
+        "y": 770,
+        "w": 116,
+        "h": 100
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 116,
+        "h": 100
+      },
+      "sourceSize": {
+        "w": 116,
+        "h": 100
+      }
+    },
+    "pickup-rapid-01": {
+      "frame": {
+        "x": 238,
+        "y": 770,
+        "w": 108,
+        "h": 108
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 108,
+        "h": 108
+      },
+      "sourceSize": {
+        "w": 108,
+        "h": 108
+      }
+    },
+    "pickup-rapid-02": {
+      "frame": {
+        "x": 348,
+        "y": 770,
+        "w": 108,
+        "h": 108
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 108,
+        "h": 108
+      },
+      "sourceSize": {
+        "w": 108,
+        "h": 108
+      }
+    },
+    "pickup-rapid-03": {
+      "frame": {
+        "x": 458,
+        "y": 770,
+        "w": 108,
+        "h": 108
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 108,
+        "h": 108
+      },
+      "sourceSize": {
+        "w": 108,
+        "h": 108
+      }
+    },
+    "pickup-rapid-04": {
+      "frame": {
+        "x": 568,
+        "y": 770,
+        "w": 108,
+        "h": 108
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 108,
+        "h": 108
+      },
+      "sourceSize": {
+        "w": 108,
+        "h": 108
+      }
+    },
+    "pickup-shield-01": {
+      "frame": {
+        "x": 678,
+        "y": 770,
+        "w": 108,
+        "h": 108
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 108,
+        "h": 108
+      },
+      "sourceSize": {
+        "w": 108,
+        "h": 108
+      }
+    },
+    "pickup-shield-02": {
+      "frame": {
+        "x": 788,
+        "y": 770,
+        "w": 108,
+        "h": 108
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 108,
+        "h": 108
+      },
+      "sourceSize": {
+        "w": 108,
+        "h": 108
+      }
+    },
+    "pickup-shield-03": {
+      "frame": {
+        "x": 898,
+        "y": 770,
+        "w": 108,
+        "h": 108
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 108,
+        "h": 108
+      },
+      "sourceSize": {
+        "w": 108,
+        "h": 108
+      }
+    },
+    "pickup-shield-04": {
+      "frame": {
+        "x": 1008,
+        "y": 770,
+        "w": 108,
+        "h": 108
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 108,
+        "h": 108
+      },
+      "sourceSize": {
+        "w": 108,
+        "h": 108
+      }
+    },
+    "player-damage-01": {
+      "frame": {
+        "x": 1118,
+        "y": 770,
+        "w": 236,
+        "h": 136
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 236,
+        "h": 136
+      },
+      "sourceSize": {
+        "w": 236,
+        "h": 136
+      }
+    },
+    "player-damage-02": {
+      "frame": {
+        "x": 1356,
+        "y": 770,
+        "w": 236,
+        "h": 136
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 236,
+        "h": 136
+      },
+      "sourceSize": {
+        "w": 236,
+        "h": 136
+      }
+    },
+    "player-fire-01": {
+      "frame": {
+        "x": 1594,
+        "y": 770,
+        "w": 236,
+        "h": 136
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 236,
+        "h": 136
+      },
+      "sourceSize": {
+        "w": 236,
+        "h": 136
+      }
+    },
+    "player-fire-02": {
+      "frame": {
+        "x": 2,
+        "y": 908,
+        "w": 236,
+        "h": 136
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 236,
+        "h": 136
+      },
+      "sourceSize": {
+        "w": 236,
+        "h": 136
+      }
+    },
+    "player-idle-01": {
+      "frame": {
+        "x": 240,
+        "y": 908,
+        "w": 236,
+        "h": 136
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 236,
+        "h": 136
+      },
+      "sourceSize": {
+        "w": 236,
+        "h": 136
+      }
+    },
+    "player-idle-02": {
+      "frame": {
+        "x": 478,
+        "y": 908,
+        "w": 236,
+        "h": 136
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 236,
+        "h": 136
+      },
+      "sourceSize": {
+        "w": 236,
+        "h": 136
+      }
+    },
+    "player-idle-03": {
+      "frame": {
+        "x": 716,
+        "y": 908,
+        "w": 236,
+        "h": 136
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 236,
+        "h": 136
+      },
+      "sourceSize": {
+        "w": 236,
+        "h": 136
+      }
+    },
+    "player-idle-04": {
+      "frame": {
+        "x": 954,
+        "y": 908,
+        "w": 236,
+        "h": 136
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 236,
+        "h": 136
+      },
+      "sourceSize": {
+        "w": 236,
+        "h": 136
+      }
+    }
+  },
+  "meta": {
+    "app": "Parcel Patrol asset pipeline",
+    "version": "1.0",
+    "image": "gameplay-atlas.png",
+    "format": "RGBA8888",
+    "size": {
+      "w": 2048,
+      "h": 2048
+    },
+    "scale": "1"
+  }
+}

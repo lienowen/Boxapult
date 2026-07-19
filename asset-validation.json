@@ -1,0 +1,701 @@
+{
+  "frameCount": 58,
+  "frames": [
+    {
+      "frame": "player-idle-01",
+      "size": [
+        236,
+        136
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "source": "gameplay/player/player-idle-01.png"
+    },
+    {
+      "frame": "player-idle-02",
+      "size": [
+        236,
+        136
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "source": "gameplay/player/player-idle-02.png"
+    },
+    {
+      "frame": "player-idle-03",
+      "size": [
+        236,
+        136
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "source": "gameplay/player/player-idle-03.png"
+    },
+    {
+      "frame": "player-idle-04",
+      "size": [
+        236,
+        136
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "source": "gameplay/player/player-idle-04.png"
+    },
+    {
+      "frame": "player-fire-01",
+      "size": [
+        236,
+        136
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "source": "gameplay/player/player-fire-01.png"
+    },
+    {
+      "frame": "player-fire-02",
+      "size": [
+        236,
+        136
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "source": "gameplay/player/player-fire-02.png"
+    },
+    {
+      "frame": "player-damage-01",
+      "size": [
+        236,
+        136
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "source": "gameplay/player/player-damage-01.png"
+    },
+    {
+      "frame": "player-damage-02",
+      "size": [
+        236,
+        136
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "source": "gameplay/player/player-damage-02.png"
+    },
+    {
+      "frame": "enemy-scout-fly-01",
+      "size": [
+        176,
+        104
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "source": "gameplay/enemies/scout/enemy-scout-fly-01.png"
+    },
+    {
+      "frame": "enemy-scout-fly-02",
+      "size": [
+        176,
+        104
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "source": "gameplay/enemies/scout/enemy-scout-fly-02.png"
+    },
+    {
+      "frame": "enemy-scout-fly-03",
+      "size": [
+        176,
+        104
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "source": "gameplay/enemies/scout/enemy-scout-fly-03.png"
+    },
+    {
+      "frame": "enemy-scout-fly-04",
+      "size": [
+        176,
+        104
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "source": "gameplay/enemies/scout/enemy-scout-fly-04.png"
+    },
+    {
+      "frame": "enemy-scout-damage-01",
+      "size": [
+        176,
+        104
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "source": "gameplay/enemies/scout/enemy-scout-damage-01.png"
+    },
+    {
+      "frame": "enemy-raider-fly-01",
+      "size": [
+        216,
+        128
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "source": "gameplay/enemies/raider/enemy-raider-fly-01.png"
+    },
+    {
+      "frame": "enemy-raider-fly-02",
+      "size": [
+        216,
+        128
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "source": "gameplay/enemies/raider/enemy-raider-fly-02.png"
+    },
+    {
+      "frame": "enemy-raider-fly-03",
+      "size": [
+        216,
+        128
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "source": "gameplay/enemies/raider/enemy-raider-fly-03.png"
+    },
+    {
+      "frame": "enemy-raider-fly-04",
+      "size": [
+        216,
+        128
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "source": "gameplay/enemies/raider/enemy-raider-fly-04.png"
+    },
+    {
+      "frame": "enemy-raider-fire-01",
+      "size": [
+        216,
+        128
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "source": "gameplay/enemies/raider/enemy-raider-fire-01.png"
+    },
+    {
+      "frame": "enemy-raider-fire-02",
+      "size": [
+        216,
+        128
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "source": "gameplay/enemies/raider/enemy-raider-fire-02.png"
+    },
+    {
+      "frame": "enemy-raider-damage-01",
+      "size": [
+        216,
+        128
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "source": "gameplay/enemies/raider/enemy-raider-damage-01.png"
+    },
+    {
+      "frame": "enemy-interceptor-fly-01",
+      "size": [
+        192,
+        120
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "source": "gameplay/enemies/interceptor/enemy-interceptor-fly-01.png"
+    },
+    {
+      "frame": "enemy-interceptor-fly-02",
+      "size": [
+        192,
+        120
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "source": "gameplay/enemies/interceptor/enemy-interceptor-fly-02.png"
+    },
+    {
+      "frame": "enemy-interceptor-fly-03",
+      "size": [
+        192,
+        120
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "source": "gameplay/enemies/interceptor/enemy-interceptor-fly-03.png"
+    },
+    {
+      "frame": "enemy-interceptor-fly-04",
+      "size": [
+        192,
+        120
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "source": "gameplay/enemies/interceptor/enemy-interceptor-fly-04.png"
+    },
+    {
+      "frame": "enemy-interceptor-boost-01",
+      "size": [
+        192,
+        120
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "source": "gameplay/enemies/interceptor/enemy-interceptor-boost-01.png"
+    },
+    {
+      "frame": "enemy-interceptor-boost-02",
+      "size": [
+        192,
+        120
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "source": "gameplay/enemies/interceptor/enemy-interceptor-boost-02.png"
+    },
+    {
+      "frame": "enemy-interceptor-damage-01",
+      "size": [
+        192,
+        120
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "source": "gameplay/enemies/interceptor/enemy-interceptor-damage-01.png"
+    },
+    {
+      "frame": "parcel-normal",
+      "size": [
+        116,
+        100
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "source": "gameplay/parcels/parcel-normal.png"
+    },
+    {
+      "frame": "parcel-glow",
+      "size": [
+        116,
+        100
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "source": "gameplay/parcels/parcel-glow.png"
+    },
+    {
+      "frame": "pickup-shield-01",
+      "size": [
+        108,
+        108
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "source": "gameplay/pickups/pickup-shield-01.png"
+    },
+    {
+      "frame": "pickup-shield-02",
+      "size": [
+        108,
+        108
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "source": "gameplay/pickups/pickup-shield-02.png"
+    },
+    {
+      "frame": "pickup-shield-03",
+      "size": [
+        108,
+        108
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "source": "gameplay/pickups/pickup-shield-03.png"
+    },
+    {
+      "frame": "pickup-shield-04",
+      "size": [
+        108,
+        108
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "source": "gameplay/pickups/pickup-shield-04.png"
+    },
+    {
+      "frame": "pickup-rapid-01",
+      "size": [
+        108,
+        108
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "source": "gameplay/pickups/pickup-rapid-01.png"
+    },
+    {
+      "frame": "pickup-rapid-02",
+      "size": [
+        108,
+        108
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "source": "gameplay/pickups/pickup-rapid-02.png"
+    },
+    {
+      "frame": "pickup-rapid-03",
+      "size": [
+        108,
+        108
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "source": "gameplay/pickups/pickup-rapid-03.png"
+    },
+    {
+      "frame": "pickup-rapid-04",
+      "size": [
+        108,
+        108
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "source": "gameplay/pickups/pickup-rapid-04.png"
+    },
+    {
+      "frame": "bolt-player-01",
+      "size": [
+        76,
+        32
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "source": "gameplay/projectiles/bolt-player-01.png"
+    },
+    {
+      "frame": "bolt-player-02",
+      "size": [
+        76,
+        32
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "source": "gameplay/projectiles/bolt-player-02.png"
+    },
+    {
+      "frame": "bolt-enemy-01",
+      "size": [
+        88,
+        44
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "source": "gameplay/projectiles/bolt-enemy-01.png"
+    },
+    {
+      "frame": "bolt-enemy-02",
+      "size": [
+        88,
+        44
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "source": "gameplay/projectiles/bolt-enemy-02.png"
+    },
+    {
+      "frame": "bolt-enemy-03",
+      "size": [
+        88,
+        44
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "source": "gameplay/projectiles/bolt-enemy-03.png"
+    },
+    {
+      "frame": "bolt-enemy-04",
+      "size": [
+        88,
+        44
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "source": "gameplay/projectiles/bolt-enemy-04.png"
+    },
+    {
+      "frame": "fx-explosion-01",
+      "size": [
+        256,
+        256
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "source": "fx/explosion/fx-explosion-01.png"
+    },
+    {
+      "frame": "fx-explosion-02",
+      "size": [
+        256,
+        256
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "source": "fx/explosion/fx-explosion-02.png"
+    },
+    {
+      "frame": "fx-explosion-03",
+      "size": [
+        256,
+        256
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "source": "fx/explosion/fx-explosion-03.png"
+    },
+    {
+      "frame": "fx-explosion-04",
+      "size": [
+        256,
+        256
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "source": "fx/explosion/fx-explosion-04.png"
+    },
+    {
+      "frame": "fx-explosion-05",
+      "size": [
+        256,
+        256
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "source": "fx/explosion/fx-explosion-05.png"
+    },
+    {
+      "frame": "fx-explosion-06",
+      "size": [
+        256,
+        256
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "source": "fx/explosion/fx-explosion-06.png"
+    },
+    {
+      "frame": "fx-explosion-07",
+      "size": [
+        256,
+        256
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "source": "fx/explosion/fx-explosion-07.png"
+    },
+    {
+      "frame": "fx-explosion-08",
+      "size": [
+        256,
+        256
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "source": "fx/explosion/fx-explosion-08.png"
+    },
+    {
+      "frame": "fx-pickup-burst-01",
+      "size": [
+        192,
+        192
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "source": "fx/pickup-burst/fx-pickup-burst-01.png"
+    },
+    {
+      "frame": "fx-pickup-burst-02",
+      "size": [
+        192,
+        192
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "source": "fx/pickup-burst/fx-pickup-burst-02.png"
+    },
+    {
+      "frame": "fx-pickup-burst-03",
+      "size": [
+        192,
+        192
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "source": "fx/pickup-burst/fx-pickup-burst-03.png"
+    },
+    {
+      "frame": "fx-pickup-burst-04",
+      "size": [
+        192,
+        192
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "source": "fx/pickup-burst/fx-pickup-burst-04.png"
+    },
+    {
+      "frame": "fx-pickup-burst-05",
+      "size": [
+        192,
+        192
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "source": "fx/pickup-burst/fx-pickup-burst-05.png"
+    },
+    {
+      "frame": "fx-pickup-burst-06",
+      "size": [
+        192,
+        192
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "source": "fx/pickup-burst/fx-pickup-burst-06.png"
+    },
+    {
+      "frame": "ui-logo-title",
+      "size": [
+        1200,
+        420
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "source": "ui/logo/ui-logo-title.png"
+    }
+  ]
+}
