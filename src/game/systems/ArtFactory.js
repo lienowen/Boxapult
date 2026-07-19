@@ -6,6 +6,20 @@ export function ensureTextures(scene) {
   makePowerup(g, 'rapid', 0xffd260, 'R'); makeSpark(g); makeCity(g, 'city-far', 720, 230, 0x9db2c8);
   makeCity(g, 'city-near', 720, 280, 0xd6e2ee); g.destroy();
 }
+
+export function ensureEnvironmentTextures(scene) {
+  const needsSpark = !scene.textures.exists('spark');
+  const needsFar = !scene.textures.exists('city-far');
+  const needsNear = !scene.textures.exists('city-near');
+  if (!needsSpark && !needsFar && !needsNear) return;
+
+  const g = scene.add.graphics();
+  if (needsSpark) makeSpark(g);
+  if (needsFar) makeCity(g, 'city-far', 720, 230, 0x9db2c8);
+  if (needsNear) makeCity(g, 'city-near', 720, 280, 0xd6e2ee);
+  g.destroy();
+}
+
 function clear(g,w,h){g.clear();g.fillStyle(0,0);g.fillRect(0,0,w,h);}
 function makePlayer(g){clear(g,118,68);g.fillStyle(0x07111e,.32);g.fillEllipse(58,57,88,12);g.fillStyle(0x25c3d9);g.fillRoundedRect(25,16,66,34,14);g.fillStyle(0x79f0ff);g.fillRoundedRect(40,22,30,12,5);g.fillStyle(0x0d192a);g.fillCircle(82,33,8);g.fillStyle(0xffb84d);g.fillTriangle(23,24,23,45,3,34);g.fillStyle(0xf3f7fb);g.fillRect(44,40,31,13);g.lineStyle(3,0x091528,.8);g.strokeRoundedRect(25,16,66,34,14);g.generateTexture('player',118,68);}
 function makeEnemy(g,key,color,w,h){clear(g,w,h);g.fillStyle(color);g.fillRoundedRect(12,10,w-25,h-20,12);g.fillStyle(0xffffff,.65);g.fillRoundedRect(25,18,w*.28,9,4);g.fillStyle(0x101525);g.fillCircle(w-28,h/2,7);g.lineStyle(3,0x210d22,.75);g.strokeRoundedRect(12,10,w-25,h-20,12);g.generateTexture(key,w,h);}
