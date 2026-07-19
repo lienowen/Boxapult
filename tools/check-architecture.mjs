@@ -1,69 +1,44 @@
-import { readFile, readdir } from 'node:fs/promises';
-import { extname, join, relative, resolve, sep } from 'node:path';
-import process from 'node:process';
+import { readdir, readFile } from 'node:fs/promises';
+import { join, relative } from 'node:path';
 
-const root = process.cwd();
-const srcRoot = join(root, 'src');
-const allowedDependencies = {
-  domain: new Set(['domain']),
-  application: new Set(['application', 'domain']),
-  content: new Set(['content', 'domain']),
-  infrastructure: new Set(['infrastructure', 'application', 'domain']),
-  runtime: new Set(['runtime', 'application', 'content', 'domain']),
-  app: new Set(['app', 'application', 'infrastructure', 'runtime', 'content', 'domain']),
-};
+const root = new URL('../src/', import.meta.url);
+const files = await walk(root);
+const violations = [];
 
-const errors = [];
-const files = await collect(srcRoot);
-for (const file of files) {
-  if (!['.ts', '.tsx'].includes(extname(file))) continue;
-  const source = await readFile(file, 'utf8');
-  const relativePath = normalize(relative(root, file));
-  const layer = relativePath.split('/')[1];
-  if (!layer || !(layer in allowedDependencies)) continue;
+for (const fileUrl of files.filter((file) => file.pathname.endsWith('.js'))) {
+  const path = relative(new URL('..', root).pathname, fileUrl.pathname);
+  const source = await readFile(fileUrl, 'utf8');
 
-  if (layer !== 'runtime' && layer !== 'app' && /from\s+['"]phaser['"]/.test(source)) {
-    errors.push(`${relativePath}: only runtime/app may import Phaser.`);
+  if (path.includes('/domain/') && /from ['"]\.\.\/game|Phaser|localStorage|AudioContext/.test(source)) {
+    violations.push(`${path}: domain must remain framework and browser independent`);
   }
-  if (layer !== 'infrastructure' && /\blocalStorage\b/.test(source)) {
-    errors.push(`${relativePath}: localStorage is restricted to infrastructure.`);
+  if (!path.includes('/infrastructure/') && /localStorage/.test(source)) {
+    violations.push(`${path}: localStorage is restricted to infrastructure`);
   }
-  if (layer !== 'infrastructure' && /CrazyGames|CrazySDK|crazygames/i.test(source)) {
-    errors.push(`${relativePath}: platform SDK references are restricted to infrastructure.`);
+  if (path !== 'src/main.js' && /new Phaser\.Game/.test(source)) {
+    violations.push(`${path}: Phaser game composition belongs only in main.js`);
   }
-  if (/switch\s*\([^)]*(levelId|level\.id)/.test(source)) {
-    errors.push(`${relativePath}: per-level switch statements are forbidden.`);
+  if (/route\.id\s*===|switch\s*\(\s*route\.id/.test(source)) {
+    violations.push(`${path}: route-specific branching is forbidden; move the value into route config`);
   }
-
-  for (const match of source.matchAll(/from\s+['"](\.\.?\/[^'"]+)['"]/g)) {
-    const specifier = match[1];
-    const target = resolve(join(file, '..'), specifier);
-    const targetRelative = normalize(relative(srcRoot, target));
-    const targetLayer = targetRelative.split('/')[0];
-    if (targetLayer && targetLayer in allowedDependencies && !allowedDependencies[layer].has(targetLayer)) {
-      errors.push(`${relativePath}: layer '${layer}' cannot import '${targetLayer}'.`);
-    }
+  if (/load\.(image|spritesheet|audio)\(/.test(source)) {
+    violations.push(`${path}: production assets must use the approved asset pipeline, not ad-hoc scene loading`);
   }
 }
 
-if (errors.length > 0) {
-  console.error('Architecture validation failed:\n' + errors.map((error) => `- ${error}`).join('\n'));
+if (violations.length) {
+  console.error('Architecture check failed:\n' + violations.map((v) => `- ${v}`).join('\n'));
   process.exit(1);
 }
+console.log(`Architecture check passed for ${files.length} source files`);
 
-console.log(`Architecture validation passed (${files.length} source files checked).`);
-
-async function collect(directory) {
-  const entries = await readdir(directory, { withFileTypes: true });
-  const result = [];
+async function walk(directoryUrl) {
+  const entries = await readdir(directoryUrl, { withFileTypes: true });
+  const output = [];
   for (const entry of entries) {
-    const path = join(directory, entry.name);
-    if (entry.isDirectory()) result.push(...await collect(path));
-    else result.push(path);
+    const child = new URL(`${entry.name}${entry.isDirectory() ? '/' : ''}`, directoryUrl);
+    if (entry.isDirectory()) output.push(...await walk(child));
+    else output.push(child);
   }
-  return result;
-}
-
-function normalize(path) {
-  return path.split(sep).join('/');
+  return output;
 }

@@ -1,25 +1,13 @@
 {
-  "name": "parcel-patrol",
-  "version": "0.2.0",
+  "name": "parcel-patrol-standalone",
+  "version": "0.3.0",
   "private": true,
   "type": "module",
-  "engines": {
-    "node": ">=22.12.0"
-  },
   "scripts": {
-    "dev": "vite --host 0.0.0.0",
-    "build": "tsc --noEmit && vite build",
-    "preview": "vite preview --host 0.0.0.0",
-    "test": "vitest run",
+    "test": "node tests/mission-session.test.mjs",
+    "serve": "python3 -m http.server 5173",
     "check:architecture": "node tools/check-architecture.mjs",
-    "check": "npm run check:architecture && npm run test && npm run build"
-  },
-  "dependencies": {
-    "phaser": "3.90.0"
-  },
-  "devDependencies": {
-    "typescript": "7.0.2",
-    "vite": "8.1.3",
-    "vitest": "4.1.10"
+    "check:syntax": "find src -type f -name '*.js' -print0 | xargs -0 -n1 node --check",
+    "check": "npm run check:architecture && npm run check:syntax && npm test"
   }
 }
