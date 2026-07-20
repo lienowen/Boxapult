@@ -6,31 +6,31 @@ export class Hud {
     this.targetSecured = false;
 
     const width = scene.scale.width;
-    scene.add.rectangle(width / 2, 44, width - 42, 74, 0x061424, .82)
-      .setStrokeStyle(2, 0x86e3ef, .25)
+    scene.add.rectangle(width / 2, 44, width - 42, 74, 0x050914, .88)
+      .setStrokeStyle(2, 0xff6f9f, .25)
       .setDepth(100);
 
     this.route = scene.add.text(34, 18, route.name, {
       fontFamily: 'Arial',
       fontSize: '19px',
-      color: '#bceeff',
+      color: '#ff8ca5',
       fontStyle: 'bold',
     }).setDepth(110);
 
-    this.score = scene.add.text(34, 48, 'SCORE 000000', {
+    this.score = scene.add.text(34, 48, 'BOUNTY 000000', {
       fontFamily: 'Arial Black',
       fontSize: '22px',
       color: '#fff',
     }).setDepth(110);
 
-    this.parcels = scene.add.text(325, 48, 'PARCELS 0/0', {
+    this.parcels = scene.add.text(325, 48, 'CORES 0/0', {
       fontFamily: 'Arial',
       fontSize: '21px',
       color: '#ffd98a',
       fontStyle: 'bold',
     }).setDepth(110);
 
-    this.combo = scene.add.text(555, 48, 'COMBO x1.0', {
+    this.combo = scene.add.text(555, 48, 'CHAIN x1.0', {
       fontFamily: 'Arial',
       fontSize: '21px',
       color: '#72efff',
@@ -44,29 +44,29 @@ export class Hud {
       fontStyle: 'bold',
     }).setDepth(110);
 
-    this.lives = scene.add.text(width - 242, 19, '♥ ♥ ♥', {
+    this.lives = scene.add.text(width - 285, 19, 'HULL  ◆ ◆ ◆', {
       fontFamily: 'Arial',
-      fontSize: '25px',
+      fontSize: '21px',
       color: '#ff7184',
       fontStyle: 'bold',
     }).setDepth(110);
 
-    this.time = scene.add.text(width - 242, 49, 'TIME 00', {
+    this.time = scene.add.text(width - 242, 49, 'TRACE 00', {
       fontFamily: 'Arial Black',
       fontSize: '22px',
       color: '#fff',
     }).setDepth(110);
 
-    scene.add.rectangle(width / 2, 88, width - 84, 8, 0x07111d, .8).setDepth(100);
-    this.bar = scene.add.rectangle(42, 88, width - 84, 8, 0x59e7b0)
+    scene.add.rectangle(width / 2, 88, width - 84, 8, 0x03060c, .9).setDepth(100);
+    this.bar = scene.add.rectangle(42, 88, width - 84, 8, 0xff5b78)
       .setOrigin(0, .5)
       .setDepth(101);
 
-    this.objective = scene.add.text(width / 2, 116, `COLLECT ${route.targetParcels} PARCELS AND SURVIVE`, {
+    this.objective = scene.add.text(width / 2, 116, `EXTRACT ${route.targetParcels} ENERGY CORES AND SURVIVE`, {
       fontFamily: 'Arial',
       fontSize: '18px',
       color: '#e7f8ff',
-      backgroundColor: '#07111dcc',
+      backgroundColor: '#050914dd',
       padding: { x: 14, y: 7 },
     }).setOrigin(.5).setDepth(100);
 
@@ -74,22 +74,22 @@ export class Hud {
   }
 
   update(session, powerLabel = ''){
-    this.score.setText(`SCORE ${String(session.score).padStart(6, '0')}`);
-    this.parcels.setText(`PARCELS ${session.parcels}/${session.route.targetParcels}`);
-    this.combo.setText(`COMBO x${session.combo.toFixed(1)}`);
+    this.score.setText(`BOUNTY ${String(session.score).padStart(6, '0')}`);
+    this.parcels.setText(`CORES ${session.parcels}/${session.route.targetParcels}`);
+    this.combo.setText(`CHAIN x${session.combo.toFixed(1)}`);
     this.power.setText(powerLabel);
-    this.lives.setText(Array.from({ length: session.lives }, () => '♥').join(' '));
-    this.time.setText(`TIME ${String(session.timeSeconds).padStart(2, '0')}`);
+    this.lives.setText(`HULL  ${Array.from({ length: session.lives }, () => '◆').join(' ')}`);
+    this.time.setText(`TRACE ${String(session.timeSeconds).padStart(2, '0')}`);
 
     const ratio = session.remainingMs / (session.route.durationSeconds * 1000);
     this.bar.setScale(Math.max(0, Math.min(1, ratio)), 1);
-    this.bar.setFillStyle(ratio < .2 ? 0xff7184 : ratio < .45 ? 0xffd36f : 0x59e7b0);
+    this.bar.setFillStyle(ratio < .2 ? 0xff334f : ratio < .45 ? 0xffa447 : 0xff5b78);
 
     const secured = session.parcels >= session.route.targetParcels;
     this.objective.setText(
       secured
-        ? 'PARCEL TARGET SECURED — SURVIVE!'
-        : `COLLECT ${session.route.targetParcels - session.parcels} MORE PARCEL${session.route.targetParcels - session.parcels === 1 ? '' : 'S'}`,
+        ? 'CORE QUOTA SECURED — ESCAPE THE SECTOR!'
+        : `STEAL ${session.route.targetParcels - session.parcels} MORE CORE${session.route.targetParcels - session.parcels === 1 ? '' : 'S'}`,
     );
 
     if (session.parcels !== this.lastParcels) {
@@ -136,19 +136,19 @@ export class Hud {
 
   #showRouteIntro(route){
     const width = this.scene.scale.width;
-    const accent = route.scenery?.accentColor ?? 0x72efff;
+    const accent = route.scenery?.accentColor ?? 0xff6f9f;
     const container = this.scene.add.container(width / 2, 218)
       .setDepth(130)
       .setAlpha(0)
       .setScale(.9);
 
-    const panel = this.scene.add.rectangle(0, 0, 650, 104, 0x061424, .91)
-      .setStrokeStyle(3, accent, .58);
+    const panel = this.scene.add.rectangle(0, 0, 650, 104, 0x050914, .94)
+      .setStrokeStyle(3, accent, .62);
     const title = this.scene.add.text(0, -20, route.name, {
       fontFamily: 'Arial Black',
       fontSize: '30px',
       color: '#ffffff',
-      stroke: '#06101e',
+      stroke: '#050813',
       strokeThickness: 5,
     }).setOrigin(.5);
     const briefing = this.scene.add.text(0, 24, route.briefing, {
