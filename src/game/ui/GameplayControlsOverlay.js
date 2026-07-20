@@ -79,9 +79,9 @@ export class GameplayControlsOverlay {
     this.#mode = 'tutorial';
     this.#onPauseChange(true, 'tutorial');
     this.#modal = this.#createModal({
-      title: 'FIRST DELIVERY',
-      body: 'MOVE\nPointer / Touch / ↑ ↓ / W S\n\nFIRE\nClick / Tap / Space\n\nCollect the required parcels and survive the route.',
-      primaryLabel: 'START ROUTE',
+      title: 'FIRST EXTRACTION',
+      body: 'EVADE\nPointer / Touch / ↑ ↓ / W S\n\nRETURN FIRE\nClick / Tap / Space\n\nSteal the required energy cores and survive the corporate blockade.',
+      primaryLabel: 'BEGIN THE RUN',
       onPrimary: () => {
         this.#settings.markTutorialSeen();
         this.#closeModal();
@@ -94,9 +94,9 @@ export class GameplayControlsOverlay {
     this.#mode = 'pause';
     this.#onPauseChange(true, 'pause');
     this.#modal = this.#createModal({
-      title: 'ROUTE PAUSED',
-      body: 'The delivery route is holding position.\n\nP / ESC · Resume\nM · Toggle sound',
-      primaryLabel: 'RESUME',
+      title: 'RUN PAUSED',
+      body: 'Corporate scanners have temporarily lost your signal.\n\nP / ESC · Resume\nM · Toggle sound',
+      primaryLabel: 'RESUME RUN',
       onPrimary: () => this.#closeModal(),
       showQuit: true,
     });
@@ -116,15 +116,15 @@ export class GameplayControlsOverlay {
     const height = scene.scale.height;
     const container = scene.add.container(0, 0).setDepth(500);
 
-    const blocker = scene.add.rectangle(width / 2, height / 2, width, height, 0x020914, 0.78)
+    const blocker = scene.add.rectangle(width / 2, height / 2, width, height, 0x02040a, 0.84)
       .setInteractive();
-    const panel = scene.add.rectangle(width / 2, height / 2, 660, 430, 0x081a2e, 0.98)
-      .setStrokeStyle(4, 0x79e7f4, 0.5);
+    const panel = scene.add.rectangle(width / 2, height / 2, 660, 430, 0x050914, 0.98)
+      .setStrokeStyle(4, 0xff6f9f, 0.55);
     const titleText = scene.add.text(width / 2, height / 2 - 150, title, {
       fontFamily: 'Arial Black, Arial, sans-serif',
       fontSize: '42px',
       color: '#ffffff',
-      stroke: '#06101e',
+      stroke: '#050813',
       strokeThickness: 7,
     }).setOrigin(0.5);
     const bodyText = scene.add.text(width / 2, height / 2 - 55, body, {
@@ -137,13 +137,13 @@ export class GameplayControlsOverlay {
     }).setOrigin(0.5);
 
     const primaryY = height / 2 + 145;
-    const primary = this.#createModalButton(width / 2, primaryY, 320, primaryLabel, 0x1fc490);
+    const primary = this.#createModalButton(width / 2, primaryY, 320, primaryLabel, 0xff5b78);
     primary.hit.on('pointerdown', onPrimary);
 
     container.add([blocker, panel, titleText, bodyText, primary.hit, primary.label]);
 
     if (showQuit) {
-      const quit = this.#createModalButton(width / 2, primaryY + 72, 320, 'QUIT TO ROUTES', 0x325f82);
+      const quit = this.#createModalButton(width / 2, primaryY + 72, 320, 'ABORT TO SECTORS', 0x325f82);
       quit.hit.on('pointerdown', () => {
         this.#modal = null;
         this.#mode = null;
@@ -157,26 +157,26 @@ export class GameplayControlsOverlay {
   }
 
   #createCompactButton(x, y, label) {
-    const hit = this.#scene.add.rectangle(x, y, 50, 42, 0x07182a, 0.9)
-      .setStrokeStyle(2, 0x91ddea, 0.42)
+    const hit = this.#scene.add.rectangle(x, y, 50, 42, 0x050914, 0.94)
+      .setStrokeStyle(2, 0xff6f9f, 0.45)
       .setDepth(160)
       .setInteractive({ useHandCursor: true });
     const text = this.#scene.add.text(x, y, label, {
       fontFamily: 'Arial Black, Arial, sans-serif',
       fontSize: label === 'SFX' ? '13px' : '20px',
-      color: '#e8faff',
+      color: '#f8f9ff',
     }).setOrigin(0.5).setDepth(161);
     return { hit, label: text };
   }
 
   #createModalButton(x, y, width, label, color) {
     const hit = this.#scene.add.rectangle(x, y, width, 58, color, 1)
-      .setStrokeStyle(3, 0xc9fff0, 0.65)
+      .setStrokeStyle(3, 0xffd7df, 0.65)
       .setInteractive({ useHandCursor: true });
     const text = this.#scene.add.text(x, y, label, {
       fontFamily: 'Arial Black, Arial, sans-serif',
       fontSize: '21px',
-      color: '#061822',
+      color: '#09040a',
     }).setOrigin(0.5);
     return { hit, label: text };
   }
@@ -184,7 +184,7 @@ export class GameplayControlsOverlay {
   #renderMuteState() {
     const muted = this.#audio.isMuted();
     this.#muteLabel.setText(muted ? 'OFF' : 'SFX');
-    this.#muteButton.setFillStyle(muted ? 0x4a2531 : 0x07182a, 0.9);
-    this.#muteButton.setStrokeStyle(2, muted ? 0xff8597 : 0x91ddea, 0.52);
+    this.#muteButton.setFillStyle(muted ? 0x4a2531 : 0x050914, 0.94);
+    this.#muteButton.setStrokeStyle(2, muted ? 0xff8597 : 0xff6f9f, 0.55);
   }
 }
