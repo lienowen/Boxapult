@@ -224,7 +224,7 @@ export class GameScene extends Phaser.Scene {
     this.audio.play('pickup');
     this.playEffect(ANIMATION_KEYS.pickupBurst,this.player.x+35,this.player.y,.5);
     this.burst(this.player.x+35,this.player.y,0x72f6b8,12);
-    this.floatText(this.player.x+95,this.player.y-28,`DELIVERED +${points}`);
+    this.floatText(this.player.x+95,this.player.y-28,`CORE SECURED +${points}`);
   }
 
   collectPowerup(powerup){
