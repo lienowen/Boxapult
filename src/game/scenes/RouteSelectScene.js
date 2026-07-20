@@ -6,19 +6,19 @@ export class RouteSelectScene extends Phaser.Scene {
 
   create(){
     const { width, height } = this.scale;
-    this.backdrop = new Backdrop(this, ROUTES[0]);
-    this.add.rectangle(width / 2, height / 2, width, height, 0x06111f, .46);
-    this.add.text(width / 2, 62, 'CHOOSE DELIVERY ROUTE', {
+    this.backdrop = new Backdrop(this, ROUTES[2]);
+    this.add.rectangle(width / 2, height / 2, width, height, 0x030611, .58);
+    this.add.text(width / 2, 62, 'CHOOSE BLOCKADE SECTOR', {
       fontFamily: 'Arial Black',
       fontSize: '46px',
       color: '#fff',
-      stroke: '#07111d',
+      stroke: '#050813',
       strokeThickness: 8,
     }).setOrigin(.5);
-    this.add.text(width / 2, 108, 'EACH ROUTE HAS A DIFFERENT OPENING, SKYLINE AND THREAT MIX', {
+    this.add.text(width / 2, 108, 'STEAL THE ENERGY CORES. SURVIVE THE CORPORATE RESPONSE.', {
       fontFamily: 'Arial',
       fontSize: '16px',
-      color: '#bceeff',
+      color: '#ff8ca5',
       fontStyle: 'bold',
       letterSpacing: 2,
     }).setOrigin(.5);
@@ -33,41 +33,41 @@ export class RouteSelectScene extends Phaser.Scene {
       const record = store.routeRecord(route.id);
       const x = startX + cardWidth / 2 + index * (cardWidth + gap);
       const y = 376;
-      const accent = route.scenery?.accentColor ?? 0x6fe7f4;
-      const cardColor = unlocked ? 0x0d2940 : 0x101722;
+      const accent = route.scenery?.accentColor ?? 0xff6f9f;
+      const cardColor = unlocked ? 0x0b1727 : 0x10131b;
 
-      const card = this.add.rectangle(x, y, cardWidth, 440, cardColor, .94)
-        .setStrokeStyle(3, unlocked ? accent : 0x4a5664, .60);
+      const card = this.add.rectangle(x, y, cardWidth, 440, cardColor, .96)
+        .setStrokeStyle(3, unlocked ? accent : 0x4a4d57, .66);
       if (unlocked) card.setInteractive({ useHandCursor: true });
 
-      this.add.rectangle(x, y - 208, cardWidth - 12, 10, unlocked ? accent : 0x36414d, .82);
-      this.add.text(x, y - 168, `0${index + 1}`, {
+      this.add.rectangle(x, y - 208, cardWidth - 12, 10, unlocked ? accent : 0x343742, .88);
+      this.add.text(x, y - 168, `SECTOR 0${index + 1}`, {
         fontFamily: 'Arial Black',
-        fontSize: '46px',
-        color: unlocked ? '#70eeff' : '#596674',
+        fontSize: '32px',
+        color: unlocked ? '#ff7897' : '#59606c',
       }).setOrigin(.5);
       this.add.text(x, y - 108, route.name, {
         fontFamily: 'Arial Black',
         fontSize: '25px',
-        color: unlocked ? '#fff' : '#6c7782',
+        color: unlocked ? '#fff' : '#6c727d',
         align: 'center',
         wordWrap: { width: 300 },
       }).setOrigin(.5);
       this.add.text(x, y - 66, route.subtitle, {
         fontFamily: 'Arial',
         fontSize: '18px',
-        color: unlocked ? '#cde9f2' : '#59636d',
+        color: unlocked ? '#cde9f2' : '#59606d',
       }).setOrigin(.5);
       this.add.text(x, y - 22, route.briefing, {
         fontFamily: 'Arial Black',
         fontSize: '15px',
-        color: unlocked ? '#ffd98a' : '#59636d',
+        color: unlocked ? '#ffd98a' : '#59606d',
         align: 'center',
       }).setOrigin(.5);
-      this.add.text(x, y + 25, `${route.durationSeconds}s  ·  ${route.targetParcels} PARCELS`, {
+      this.add.text(x, y + 25, `${route.durationSeconds}s  ·  ${route.targetParcels} CORES`, {
         fontFamily: 'Arial',
         fontSize: '20px',
-        color: unlocked ? '#dff8ff' : '#59636d',
+        color: unlocked ? '#dff8ff' : '#59606d',
         fontStyle: 'bold',
       }).setOrigin(.5);
       this.add.text(x, y + 79, unlocked ? `BEST ${String(record.bestScore).padStart(6, '0')}` : 'LOCKED', {
@@ -75,21 +75,21 @@ export class RouteSelectScene extends Phaser.Scene {
         fontSize: '22px',
         color: unlocked ? '#fff' : '#ff7d8f',
       }).setOrigin(.5);
-      this.add.text(x, y + 121, unlocked ? stars(record.bestStars) : 'COMPLETE PREVIOUS ROUTE', {
+      this.add.text(x, y + 121, unlocked ? rank(record.bestStars) : 'BREAK THE PREVIOUS BLOCKADE', {
         fontFamily: 'Arial',
-        fontSize: '24px',
+        fontSize: '21px',
         color: '#ffe181',
         fontStyle: 'bold',
       }).setOrigin(.5);
 
       if (unlocked) {
-        const play = this.add.rectangle(x, y + 178, 240, 56, 0x1fbf8e)
-          .setStrokeStyle(2, 0xb6ffe5, .8)
+        const play = this.add.rectangle(x, y + 178, 240, 56, 0xff5b78)
+          .setStrokeStyle(2, 0xffcad4, .8)
           .setInteractive({ useHandCursor: true });
-        this.add.text(x, y + 178, 'LAUNCH', {
+        this.add.text(x, y + 178, 'INFILTRATE', {
           fontFamily: 'Arial Black',
           fontSize: '22px',
-          color: '#061923',
+          color: '#12040a',
         }).setOrigin(.5);
         card.on('pointerdown', () => this.launch(route.id));
         play.on('pointerdown', () => this.launch(route.id));
@@ -115,6 +115,6 @@ export class RouteSelectScene extends Phaser.Scene {
   }
 }
 
-function stars(count){
-  return `${'★'.repeat(count)}${'☆'.repeat(3 - count)}`;
+function rank(count){
+  return `RENEGADE RANK  ${'◆'.repeat(count)}${'◇'.repeat(3 - count)}`;
 }
