@@ -1,29 +1,50 @@
 :root {
   color-scheme: dark;
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background: #10233d;
+  background: #090b18;
 }
+
 * { box-sizing: border-box; }
-html, body, #game-root { width: 100%; height: 100%; margin: 0; overflow: hidden; background: #10233d; }
+
+html, body, #game-root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: #090b18;
+}
+
 body { position: relative; }
 canvas { display: block; margin: 0 auto; touch-action: none; }
-#orientation-guard, #load-error {
-  display: none; position: fixed; inset: 0; z-index: 10000; align-items: center; justify-content: center;
-  padding: 28px; background: radial-gradient(circle at 50% 32%, #2f5578 0%, #172c48 50%, #0b1525 100%);
+
+#orientation-guard {
+  display: none !important;
 }
-.orientation-card, #load-error {
-  flex-direction: column; gap: 14px; text-align: center;
+
+#load-error {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 14px;
+  padding: 28px;
+  text-align: center;
+  background: radial-gradient(circle at 50% 32%, #2f263e 0%, #171224 50%, #090b18 100%);
 }
-.orientation-card {
-  display: flex; width: min(380px, 100%); align-items: center; padding: 32px 26px;
-  border: 2px solid rgba(190, 230, 255, .22); background: rgba(6, 17, 30, .82);
-  box-shadow: 0 24px 70px rgba(0,0,0,.4);
+
+#load-error strong {
+  color: #fff;
+  font-size: 24px;
+  letter-spacing: .08em;
 }
-.orientation-icon { font-size: 68px; line-height: 1; color: #72f6b8; }
-.orientation-card strong, #load-error strong { color: #fff; font-size: 24px; letter-spacing: .08em; }
-.orientation-card span, #load-error span { color: #c9dff0; font-size: 16px; line-height: 1.5; }
+
+#load-error span {
+  color: #c9dff0;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
 #load-error:not([hidden]) { display: flex; }
-@media (orientation: portrait) {
-  #game-root { visibility: hidden; }
-  #orientation-guard { display: flex; }
-}
