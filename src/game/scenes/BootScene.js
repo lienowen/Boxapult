@@ -8,13 +8,13 @@ export class BootScene extends Phaser.Scene {
   preload(){
     const width=this.scale.width;
     const height=this.scale.height;
-    this.cameras.main.setBackgroundColor('#10233d');
-    this.add.text(width/2,height/2-105,'PARCEL PATROL',{fontFamily:'Arial Black',fontSize:'44px',color:'#ffffff',stroke:'#07111d',strokeThickness:7}).setOrigin(.5);
-    this.add.text(width/2,height/2-48,'PREPARING DELIVERY ROUTES',{fontFamily:'Arial',fontSize:'18px',color:'#9fefff',fontStyle:'bold',letterSpacing:3}).setOrigin(.5);
-    this.add.rectangle(width/2,height/2+20,520,24,0x06101d,.9).setStrokeStyle(2,0x75ddec,.35);
-    const progressBar=this.add.rectangle(width/2-252,height/2+20,504,12,0x55e6b0).setOrigin(0,.5);
+    this.cameras.main.setBackgroundColor('#090b18');
+    this.add.text(width/2,height/2-105,'CARGO RENEGADE',{fontFamily:'Arial Black',fontSize:'46px',color:'#ffffff',stroke:'#050813',strokeThickness:8,letterSpacing:3}).setOrigin(.5);
+    this.add.text(width/2,height/2-48,'INFILTRATING CORPORATE AIRSPACE',{fontFamily:'Arial',fontSize:'18px',color:'#ff7897',fontStyle:'bold',letterSpacing:3}).setOrigin(.5);
+    this.add.rectangle(width/2,height/2+20,520,24,0x060912,.94).setStrokeStyle(2,0xff6f9f,.38);
+    const progressBar=this.add.rectangle(width/2-252,height/2+20,504,12,0xff5b78).setOrigin(0,.5);
     const progressText=this.add.text(width/2,height/2+62,'0%',{fontFamily:'Arial Black',fontSize:'20px',color:'#ffffff'}).setOrigin(.5);
-    const statusText=this.add.text(width/2,height/2+98,'Loading game art…',{fontFamily:'Arial',fontSize:'16px',color:'#cde7f2'}).setOrigin(.5);
+    const statusText=this.add.text(width/2,height/2+98,'Arming renegade systems…',{fontFamily:'Arial',fontSize:'16px',color:'#cde7f2'}).setOrigin(.5);
 
     this.load.on('progress',value=>{
       progressBar.setScale(Phaser.Math.Clamp(value,0,1),1);
